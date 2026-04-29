@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://dv68tvtu4l2ln"]
+
+[ext_resource type="Script" uid="uid://cqphr75da7tg4" path="res://UI/acciones.gd" id="1_vul31"]
+
+[node name="Acciones" type="Control" unique_id=1496839050]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vul31")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=977974333]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.5
+offset_top = -93.5
+offset_right = 87.5
+offset_bottom = 93.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=653969828]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=507233040]
+layout_mode = 2
+
+[node name="boton_atacar" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=180988679]
+layout_mode = 2
+text = "ATACAR"
+
+[node name="boton_defender" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=605273588]
+layout_mode = 2
+text = "DEFENDER"
+
+[node name="boton_grunido" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1927409568]
+layout_mode = 2
+text = "GRUÑIDO"
+
+[node name="boton_bufido" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=397228451]
+layout_mode = 2
+text = "BUFIDO"
+
+[node name="boton_cerrar" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=890929083]
+layout_mode = 2
+text = "CERRAR"
+
+[connection signal="button_down" from="PanelContainer/MarginContainer/VBoxContainer/boton_atacar" to="." method="_on_boton_atacar_button_down"]
+[connection signal="button_down" from="PanelContainer/MarginContainer/VBoxContainer/boton_defender" to="." method="_on_boton_defender_button_down"]
+[connection signal="button_down" from="PanelContainer/MarginContainer/VBoxContainer/boton_grunido" to="." method="_on_boton_grunido_button_down"]
+[connection signal="button_down" from="PanelContainer/MarginContainer/VBoxContainer/boton_bufido" to="." method="_on_boton_bufido_button_down"]
+[connection signal="button_down" from="PanelContainer/MarginContainer/VBoxContainer/boton_cerrar" to="." method="_on_boton_cerrar_button_down"]
