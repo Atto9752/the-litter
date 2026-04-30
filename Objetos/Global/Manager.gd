@@ -2,6 +2,7 @@ extends Node
 signal seleccion_enemigo()
 signal seleccion_aliado()
 signal ataque_iniciado()
+signal ocultar_indicadores_aliados()
 
 
 var turno_jugador : bool = true
@@ -24,11 +25,14 @@ func mostrar_selec_gato_equipo():
 	emit_signal("seleccion_aliado")
 
 func seleccion_gato_equipo(gato):
+	emit_signal("ocultar_indicadores_aliados")
 	gato_equipo = gato
+	gato.mostrar_aliado_seleccionado()
 
 func seleccion_gato_enemigo(gato):
 	gato_objetivo = gato
 
 func iniciar_ataque():
 	emit_signal("ataque_iniciado")
+	emit_signal("ocultar_indicadores_aliados")
 	gato_equipo.atacar_enemigo(gato_objetivo)

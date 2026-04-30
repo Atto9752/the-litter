@@ -1,6 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1777480978
-icon.svg::CompressedTexture2D::3793589642598445582::1776989990::1776990005::1::::<><><>0<>0<>cf66910ee24bd34092e7ebd6ae0d1cb6<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+::res://::1777575275
 ::res://addons/::1776990517
 ::res://addons/dialogic/::1776990537
 export_plugin.gd::GDScript::7207191105660148901::1776990517::0::1::::<>EditorExportPlugin<><>0<>0<><>::
@@ -632,7 +631,7 @@ timeline.gd::GDScript::5667425671830628919::1776990538::0::1::::DialogicTimeline
 TimelineResourceLoader.gd::GDScript::1953327801557244659::1776990537::0::1::::DialogicTimelineFormatLoader<>ResourceFormatLoader<><>0<>1<><>::
 TimelineResourceSaver.gd::GDScript::6005903703142383367::1776990537::0::1::::DialogicTimelineFormatSaver<>ResourceFormatSaver<><>0<>1<><>::
 ::res://Assets/::1777332111
-::res://Assets/Fondos/::1777332149
+::res://Assets/Fondos/::1777508328
 ::res://Assets/Fondos/craftpix-city-backgrounds/::1777331969
 License.txt::TextFile::-1::1777331614::0::1::::<><><>0<>0<><>::
 ::res://Assets/Fondos/craftpix-city-backgrounds/city 1/::1777332209
@@ -703,7 +702,7 @@ License.txt::TextFile::-1::1777331614::0::1::::<><><>0<>0<><>::
 6.png::CompressedTexture2D::2021318655502525789::1777331614::1777332207::1::::<><><>0<>0<>fd3d82905cf8eb556a922c49ab913aae<>res://.godot/imported/6.png-f2db79b4a32ea13982940b3056495f2b.ctex::
 7.png::CompressedTexture2D::3010105600605765100::1777331614::1777332208::1::::<><><>0<>0<>d38e7ce1085e6233363ecf2ec0fe3450<>res://.godot/imported/7.png-6ed9ecc1a12a3ccd0e38eb996935e732.ctex::
 ::res://Assets/Fondos/craftpix-city-backgrounds/PSD/::1777331614
-::res://Assets/Fondos/craftpix-nature-backgrounds-for-rpg-battle/::1777331998
+::res://Assets/Fondos/craftpix-nature-backgrounds-for-rpg-battle/::1777508302
 license.txt::TextFile::-1::1777331596::0::1::::<><><>0<>0<><>::
 ::res://Assets/Fondos/craftpix-nature-backgrounds-for-rpg-battle/PNG/::1777331597
 ::res://Assets/Fondos/craftpix-nature-backgrounds-for-rpg-battle/PNG/autumn/::1777332209
@@ -2374,13 +2373,13 @@ GatoEnemigo.tres::Resource/PersonajeData::7334195501368021434::1777413495::0::1:
 ::res://Data/Equipo/::1777413053
 Ollie.tres::Resource/PersonajeData::1509802068566545980::1777393364::0::1::::<><><>0<>0<><>::uid://bu34252hrl4bs::::res://Data/PersonajeData.gd
 ::res://Objetos/::1777393421
-::res://Objetos/Global/::1777432058
-Manager.gd::GDScript::1114216858904850545::1777432058::0::1::::<>Node<><>0<>0<><>::
-::res://Objetos/Mundo/::1777430638
-mundo_demo.tscn::PackedScene::8222524793732252544::1777430638::0::1::::<><><>0<>0<><>::uid://cotja0nyn2o2x::::res://Assets/Fondos/craftpix-street-2d-backgrounds/PNG/City1/Bright/City1.png<>uid://ojmxv360lnag::::res://Objetos/Personajes/gato.tscn<>uid://cwv5xrognbvs0::::res://Objetos/Personajes/gato.gd<>uid://vrmhpyu771vk::::res://Data/Equipo/Ollie.tres<>uid://dcq0emnm8xy0a::::res://Data/Enemigos/GatoEnemigo.tres
-::res://Objetos/Personajes/::1777433346
-gato.gd::GDScript::6362211358115239785::1777433346::0::1::::Gato<>CharacterBody2D<><>0<>0<><>::
-gato.tscn::PackedScene::1001994035579232130::1777433346::0::1::::<><><>0<>0<><>::uid://32mn7ngeqsx4::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Attack.png<>uid://cqk8eg8lijswu::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Death.png<>uid://otum2r2fcanm::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Hurt.png<>uid://cce22cx6cwutx::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Idle.png<>uid://bnnxrwl1ce5lg::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Walk.png<>uid://dv68tvtu4l2ln::::res://UI/acciones.tscn
+::res://Objetos/Global/::1777486008
+Manager.gd::GDScript::1114216858904850545::1777486008::0::1::::<>Node<><>0<>0<><>::
+::res://Objetos/Mundo/::1777481024
+mundo_demo.tscn::PackedScene::8222524793732252544::1777481024::0::1::::<><><>0<>0<><>::uid://cotja0nyn2o2x::::res://Assets/Fondos/craftpix-street-2d-backgrounds/PNG/City1/Bright/City1.png<>uid://ojmxv360lnag::::res://Objetos/Personajes/gato.tscn<>uid://cwv5xrognbvs0::::res://Objetos/Personajes/gato.gd<>uid://vrmhpyu771vk::::res://Data/Equipo/Ollie.tres<>uid://dcq0emnm8xy0a::::res://Data/Enemigos/GatoEnemigo.tres
+::res://Objetos/Personajes/::1777486008
+gato.gd::GDScript::6362211358115239785::1777481710::0::1::::Gato<>CharacterBody2D<><>0<>0<><>::
+gato.tscn::PackedScene::1001994035579232130::1777486008::0::1::::<><><>0<>0<><>::uid://32mn7ngeqsx4::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Attack.png<>uid://cqk8eg8lijswu::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Death.png<>uid://otum2r2fcanm::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Hurt.png<>uid://cce22cx6cwutx::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Idle.png<>uid://bnnxrwl1ce5lg::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Walk.png<>uid://dv68tvtu4l2ln::::res://UI/acciones.tscn
 ::res://UI/::1777430544
 acciones.gd::GDScript::5927285636580288661::1777430544::0::1::::<>Control<><>0<>0<><>::
 acciones.tscn::PackedScene::8699262201988885719::1777429746::0::1::::<><><>0<>0<><>::uid://cqphr75da7tg4::::res://UI/acciones.gd

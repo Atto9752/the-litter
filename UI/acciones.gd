@@ -8,6 +8,7 @@ func abrir_menu():
 
 func cerrar_menu():
 	visible = false
+	
 
 func _on_boton_atacar_button_down() -> void:
 	cerrar_menu()
@@ -28,3 +29,4 @@ func _on_boton_bufido_button_down() -> void:
 
 func _on_boton_cerrar_button_down() -> void:
 	cerrar_menu()
+	Manager.emit_signal("ocultar_indicadores_aliados")

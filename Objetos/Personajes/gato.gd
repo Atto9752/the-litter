@@ -10,12 +10,15 @@ var atacando : bool = false
 func _ready():
 	animation.play("idle")
 	
+	# conexiones generales para todos los gatitos
+	Manager.connect("ataque_iniciado", ocultar_aliado_seleccionado)
+	Manager.connect("ataque_iniciado", ocultar_enemigo_seleccionado)
+	
 	if data.jugador == false:
 		Manager.connect("seleccion_enemigo", mostrar_enemigo_seleccionado)
-		Manager.connect("ataque_iniciado", ocultar_enemigo_seleccionado)
-		Manager.connect("seleccion_aliado", mostrar_aliado_seleccionado)
 	else:
-		Manager.connect("seleccion_aliado", mostrar_aliado_seleccionado)
+		# para q los aliados escuchen la indicacion de apagar su indicador verde
+		Manager.connect("ocultar_indicadores_aliados", ocultar_aliado_seleccionado)
 
 
 func _on_panel_gui_input(event: InputEvent):
