@@ -4,16 +4,26 @@ signal seleccion_aliado()
 signal ataque_iniciado()
 signal ocultar_indicadores_aliados()
 
-
 var turno_jugador : bool = true
 var puede_abrir_menu : bool = true
 
 var gato_equipo
 var gato_objetivo
 
+var enemigos = []
+var jugadores = []
+var turno_enemigo : int = 0
+
+func _ready():
+	enemigos = get_tree().get_nodes_in_group("Enemigos")
+	jugadores = get_tree().get_nodes_in_group("Jugadores")
+
 # para ir cambiando entre el turno del jugador y la ia
-func cambio_turnos():
+func cambiar_turno():
 	turno_jugador = !turno_jugador
+	
+	if turno_jugador == false:
+		iniciar_turno_enemigo()
 
 
 func mostrar_selec_gato_enemigo():
@@ -36,3 +46,9 @@ func iniciar_ataque():
 	emit_signal("ataque_iniciado")
 	emit_signal("ocultar_indicadores_aliados")
 	gato_equipo.atacar_enemigo(gato_objetivo)
+
+func iniciar_turno_enemigo():
+	var enemigo_actual = enemigos[turno_enemigo]
+	seleccion_gato_equipo(enemigo_actual)
+	seleccion_gato_enemigo(jugadores.pick_random())
+	iniciar_ataque()
