@@ -24,6 +24,6 @@ script = ExtResource("3_b5rl0")
 data = ExtResource("4_ms2jd")
 
 [node name="GatoEnemigo" parent="Node2D" unique_id=1873736662 instance=ExtResource("2_016k1")]
-position = Vector2(783, 428)
+position = Vector2(648, 432)
 script = ExtResource("3_b5rl0")
 data = ExtResource("5_58pn8")

@@ -1,7 +1,5 @@
-res://UI/acciones.gd
 res://Objetos/Personajes/gato.tscn
 res://Objetos/Personajes/gato.gd
 res://Objetos/Global/Manager.gd
-res://Objetos/Componentes/componente_salud.tscn
+res://Objetos/Mundo/mundo_demo.tscn
 res://Objetos/Componentes/componente_salud.gd
-res://UI/acciones.tscn

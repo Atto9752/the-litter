@@ -30,12 +30,15 @@ func _ready():
 	Manager.connect("ataque_iniciado", ocultar_aliado_seleccionado)
 	Manager.connect("ataque_iniciado", ocultar_enemigo_seleccionado)
 	
+	Manager.registrar_gato(self)
+	
 	if data.jugador == false:
-		add_to_group("Enemigo")
+		add_to_group("Enemigos")
+		animation.flip_h = true
 		Manager.connect("seleccion_enemigo", mostrar_enemigo_seleccionado)
 	else:
 		# para q los aliados escuchen la indicacion de apagar su indicador verde
-		add_to_group("Jugador")
+		add_to_group("Aliados")
 		Manager.connect("ocultar_indicadores_aliados", ocultar_aliado_seleccionado)
 
 
@@ -95,6 +98,7 @@ func _physics_process(delta):
 			velocity = Vector2.ZERO
 			regresar_posicion = false
 			animation.play("idle")
+			Manager.cambiar_turno()
 			
 			# RECORDAR QUITAR LUEGOOOOOOOOOOOOOOOOOOOO CTMMM
 			Manager.puede_abrir_menu = true
@@ -126,10 +130,11 @@ func ocultar_aliado_seleccionado():
 
 func _on_animation_finished():
 	if animation.animation == "attack":
-		print("Hacer daño al personaje")
-		gato_objetivo.componente_salud.recibir_danio(data.danio)
+		if gato_objetivo and gato_objetivo.has_node("ComponenteSalud"):
+			gato_objetivo.componente_salud.recibir_danio(data.danio)
+			print("Hacer daño al personaje")
+		
 		gato_objetivo = null
 		atacando = false
 		regresar_posicion = true
-		Manager.cambiar_turno()
 		Manager.puede_abrir_menu = true
