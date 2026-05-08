@@ -19,11 +19,31 @@ position = Vector2(480, 270)
 [node name="Node2D" type="Node2D" parent="." unique_id=1558050029]
 
 [node name="GatoOllie" parent="Node2D" unique_id=1098810970 instance=ExtResource("2_016k1")]
-position = Vector2(168, 427)
+position = Vector2(279, 407)
+script = ExtResource("3_b5rl0")
+data = ExtResource("4_ms2jd")
+
+[node name="GatoOllie2" parent="Node2D" unique_id=473086210 instance=ExtResource("2_016k1")]
+position = Vector2(130, 343)
+script = ExtResource("3_b5rl0")
+data = ExtResource("4_ms2jd")
+
+[node name="GatoOllie3" parent="Node2D" unique_id=1360874794 instance=ExtResource("2_016k1")]
+position = Vector2(131, 447)
 script = ExtResource("3_b5rl0")
 data = ExtResource("4_ms2jd")
 
 [node name="GatoEnemigo" parent="Node2D" unique_id=1873736662 instance=ExtResource("2_016k1")]
-position = Vector2(783, 428)
+position = Vector2(809, 451)
+script = ExtResource("3_b5rl0")
+data = ExtResource("5_58pn8")
+
+[node name="GatoEnemigo2" parent="Node2D" unique_id=1809660034 instance=ExtResource("2_016k1")]
+position = Vector2(697, 404)
+script = ExtResource("3_b5rl0")
+data = ExtResource("5_58pn8")
+
+[node name="GatoEnemigo3" parent="Node2D" unique_id=36769589 instance=ExtResource("2_016k1")]
+position = Vector2(621, 334)
 script = ExtResource("3_b5rl0")
 data = ExtResource("5_58pn8")
