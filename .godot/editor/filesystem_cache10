@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1778219278
+::res://::1778473184
 ::res://addons/::1777649175
 ::res://addons/dialogic/::1777649176
 export_plugin.gd::GDScript::7207191105660148901::1777649176::0::1::::<>EditorExportPlugin<><>0<>0<><>::
@@ -2373,16 +2373,16 @@ GatoEnemigo.tres::Resource/PersonajeData::7334195501368021434::1777649175::0::1:
 ::res://Data/Equipo/::1777649175
 Ollie.tres::Resource/PersonajeData::1509802068566545980::1777649175::0::1::::<><><>0<>0<><>::uid://bu34252hrl4bs::::res://Data/PersonajeData.gd
 ::res://Objetos/::1777708316
-::res://Objetos/Componentes/::1777709644
-componente_salud.gd::GDScript::85357867081133174::1777709644::0::1::::<>Node<><>0<>0<><>::
+::res://Objetos/Componentes/::1778225100
+componente_salud.gd::GDScript::85357867081133174::1778225100::0::1::::<>Node<><>0<>0<><>::
 componente_salud.tscn::PackedScene::8710085797216914798::1777708746::0::1::::<><><>0<>0<><>::uid://bhl3jlg4n7b3::::res://Objetos/Componentes/componente_salud.gd
-::res://Objetos/Global/::1777710237
-Manager.gd::GDScript::1114216858904850545::1777710237::0::1::::<>Node<><>0<>0<><>::
-::res://Objetos/Mundo/::1777649175
-mundo_demo.tscn::PackedScene::8222524793732252544::1777649175::0::1::::<><><>0<>0<><>::uid://cotja0nyn2o2x::::res://Assets/Fondos/craftpix-street-2d-backgrounds/PNG/City1/Bright/City1.png<>uid://ojmxv360lnag::::res://Objetos/Personajes/gato.tscn<>uid://cwv5xrognbvs0::::res://Objetos/Personajes/gato.gd<>uid://vrmhpyu771vk::::res://Data/Equipo/Ollie.tres<>uid://dcq0emnm8xy0a::::res://Data/Enemigos/GatoEnemigo.tres
-::res://Objetos/Personajes/::1777710347
-gato.gd::GDScript::6362211358115239785::1777709756::0::1::::Gato<>CharacterBody2D<><>0<>0<><>::
-gato.tscn::PackedScene::1001994035579232130::1777710347::0::1::::<><><>0<>0<><>::uid://32mn7ngeqsx4::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Attack.png<>uid://cqk8eg8lijswu::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Death.png<>uid://otum2r2fcanm::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Hurt.png<>uid://cce22cx6cwutx::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Idle.png<>uid://bnnxrwl1ce5lg::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Walk.png<>uid://dwdh3tv3cppry::::res://Objetos/Componentes/componente_salud.tscn<>uid://dv68tvtu4l2ln::::res://UI/acciones.tscn
+::res://Objetos/Global/::1778225741
+Manager.gd::GDScript::1114216858904850545::1778225741::0::1::::<>Node<><>0<>0<><>::
+::res://Objetos/Mundo/::1778226138
+mundo_demo.tscn::PackedScene::8222524793732252544::1778226138::0::1::::<><><>0<>0<><>::uid://cotja0nyn2o2x::::res://Assets/Fondos/craftpix-street-2d-backgrounds/PNG/City1/Bright/City1.png<>uid://ojmxv360lnag::::res://Objetos/Personajes/gato.tscn<>uid://cwv5xrognbvs0::::res://Objetos/Personajes/gato.gd<>uid://vrmhpyu771vk::::res://Data/Equipo/Ollie.tres<>uid://dcq0emnm8xy0a::::res://Data/Enemigos/GatoEnemigo.tres
+::res://Objetos/Personajes/::1778225741
+gato.gd::GDScript::6362211358115239785::1778225544::0::1::::Gato<>CharacterBody2D<><>0<>0<><>::
+gato.tscn::PackedScene::1001994035579232130::1778225741::0::1::::<><><>0<>0<><>::uid://32mn7ngeqsx4::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Attack.png<>uid://cqk8eg8lijswu::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Death.png<>uid://otum2r2fcanm::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Hurt.png<>uid://cce22cx6cwutx::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Idle.png<>uid://bnnxrwl1ce5lg::::res://Assets/Personajes/craftpix-street-animal/3 Cat/Walk.png<>uid://dwdh3tv3cppry::::res://Objetos/Componentes/componente_salud.tscn<>uid://dv68tvtu4l2ln::::res://UI/acciones.tscn
 ::res://UI/::1777709484
 acciones.gd::GDScript::5927285636580288661::1777706811::0::1::::<>Control<><>0<>0<><>::
 acciones.tscn::PackedScene::8699262201988885719::1777709484::0::1::::<><><>0<>0<><>::uid://cqphr75da7tg4::::res://UI/acciones.gd

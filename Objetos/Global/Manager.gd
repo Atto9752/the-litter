@@ -20,9 +20,13 @@ func registrar_gato(gato):
 	else:
 		enemigos.append(gato)
 
+
+func obtener_personajes():
+	enemigos = get_tree().get_nodes_in_group("Enemigos")
+	aliados = get_tree().get_nodes_in_group("Aliados")
+
 # para ir cambiando entre el turno del jugador y la ia
 func cambiar_turno():
-	await get_tree().create_timer(1.5).timeout # pequeña pausa
 	turno_jugador = !turno_jugador
 	
 	if turno_jugador:
@@ -31,6 +35,7 @@ func cambiar_turno():
 	else:
 		puede_abrir_menu = false
 		print("Turno del enemigo")
+		await get_tree().create_timer(1.5).timeout # pequeña pausa
 		iniciar_turno_enemigo()
 
 
@@ -59,6 +64,9 @@ func iniciar_ataque():
 
 func iniciar_turno_enemigo():
 	
+	if turno_enemigo >= enemigos.size():
+		turno_enemigo=0
+	
 	if enemigos.is_empty() or aliados.is_empty(): return # por seguridad
 	
 	var enemigo_actual = enemigos[turno_enemigo]
@@ -67,3 +75,5 @@ func iniciar_turno_enemigo():
 	seleccion_gato_equipo(enemigo_actual)
 	seleccion_gato_enemigo(objetivo)
 	iniciar_ataque()
+	
+	turno_enemigo = turno_enemigo+1

@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_bkd64")
+danio = 75.0
 metadata/_custom_type_script = "uid://bu34252hrl4bs"

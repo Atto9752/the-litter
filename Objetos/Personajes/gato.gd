@@ -43,6 +43,8 @@ func _ready():
 
 
 func _on_panel_gui_input(event: InputEvent):
+	if componente_salud.sin_salud: return
+	
 	if data.jugador:
 		if Input.is_action_just_pressed("click_izquierdo") and Manager.puede_abrir_menu and Manager.turno_jugador:
 			$Acciones.abrir_menu()
@@ -55,6 +57,7 @@ func _on_panel_gui_input(event: InputEvent):
 
 # ANIMACION para que el gato se acerque a atacar al otro
 func _physics_process(delta):
+	if componente_salud.sin_salud: return
 	
 	# IR HACIA EL ENEMIGO
 	if gato_objetivo != null and not atacando and not regresar_posicion:
@@ -138,3 +141,22 @@ func _on_animation_finished():
 		atacando = false
 		regresar_posicion = true
 		Manager.puede_abrir_menu = true
+		
+	elif animation.animation == "hurt":
+		animation.play("idle")
+		
+
+
+func _on_componente_salud_danio_recibido() -> void:
+	animation.play("hurt")
+
+func _on_componente_salud_salud_cero() -> void:
+	animation.play("dead")
+	$Salud.visible = false
+	
+	if data.jugador:
+		remove_from_group("Aliados")
+	else:
+		remove_from_group("Enemigos")
+	
+	Manager.obtener_personajes()

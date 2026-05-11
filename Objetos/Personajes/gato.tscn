@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ojmxv360lnag"]
 
+[ext_resource type="Script" uid="uid://cwv5xrognbvs0" path="res://Objetos/Personajes/gato.gd" id="1_375mc"]
 [ext_resource type="Texture2D" uid="uid://32mn7ngeqsx4" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Attack.png" id="1_uxfe0"]
 [ext_resource type="Texture2D" uid="uid://cqk8eg8lijswu" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Death.png" id="2_vksx1"]
 [ext_resource type="Texture2D" uid="uid://otum2r2fcanm" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Hurt.png" id="3_iragc"]
@@ -136,7 +137,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hurt",
-"speed": 4.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -189,6 +190,7 @@ bg_color = Color(0.5337482, 0.024698628, 0.1294437, 1)
 
 [node name="Gato" type="CharacterBody2D" unique_id=1098810970]
 motion_mode = 1
+script = ExtResource("1_375mc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1296199029]
 shape = SubResource("RectangleShape2D_fc74l")
@@ -196,13 +198,14 @@ shape = SubResource("RectangleShape2D_fc74l")
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=155168672]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_oq6l4")
-animation = &"walk"
+animation = &"hurt"
 
 [node name="Acciones" parent="." unique_id=1496839050 instance=ExtResource("7_iragc")]
-offset_left = 189.0
-offset_top = -22.0
-offset_right = 189.0
-offset_bottom = -22.0
+z_index = 10
+offset_left = 170.0
+offset_top = 17.0
+offset_right = 170.0
+offset_bottom = 17.0
 
 [node name="Panel" type="Panel" parent="." unique_id=759813101]
 offset_left = -67.0
@@ -210,6 +213,19 @@ offset_top = -4.0
 offset_right = 50.0
 offset_bottom = 80.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_375mc")
+
+[node name="ComponenteSalud" parent="." unique_id=1357292601 node_paths=PackedStringArray("progress_bar") instance=ExtResource("7_375mc")]
+progress_bar = NodePath("../Salud")
+
+[node name="Salud" type="ProgressBar" parent="." unique_id=633090340]
+offset_left = -58.0
+offset_top = -49.0
+offset_right = 44.0
+offset_bottom = -34.0
+theme_override_styles/background = SubResource("StyleBoxFlat_iragc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_375mc")
+max_value = 1.0
+show_percentage = false
 
 [node name="Seleccion_enemigo" type="Polygon2D" parent="." unique_id=325148047]
 visible = false
@@ -225,17 +241,6 @@ color = Color(0.26019084, 0.67046684, 0.18740728, 1)
 offset = Vector2(13, 26)
 polygon = PackedVector2Array(-29, -34, 3, -34, -13, -13)
 
-[node name="ComponenteSalud" parent="." unique_id=1357292601 node_paths=PackedStringArray("progress_bar") instance=ExtResource("7_375mc")]
-progress_bar = NodePath("../Salud")
-
-[node name="Salud" type="ProgressBar" parent="." unique_id=633090340]
-offset_left = -58.0
-offset_top = -49.0
-offset_right = 44.0
-offset_bottom = -34.0
-theme_override_styles/background = SubResource("StyleBoxFlat_iragc")
-theme_override_styles/fill = SubResource("StyleBoxFlat_375mc")
-max_value = 1.0
-show_percentage = false
-
 [connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
+[connection signal="danio_recibido" from="ComponenteSalud" to="." method="_on_componente_salud_danio_recibido"]
+[connection signal="salud_cero" from="ComponenteSalud" to="." method="_on_componente_salud_salud_cero"]

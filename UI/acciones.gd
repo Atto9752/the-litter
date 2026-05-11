@@ -4,6 +4,8 @@ func _ready():
 	cerrar_menu()
 
 func abrir_menu():
+	for i in get_tree().get_nodes_in_group("Aliados"):
+		i.get_node("Acciones").cerrar_menu()
 	visible = true
 
 func cerrar_menu():

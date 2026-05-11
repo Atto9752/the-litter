@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://cotja0nyn2o2x" path="res://Assets/Fondos/craftpix-street-2d-backgrounds/PNG/City1/Bright/City1.png" id="1_mgt18"]
 [ext_resource type="PackedScene" uid="uid://ojmxv360lnag" path="res://Objetos/Personajes/gato.tscn" id="2_016k1"]
-[ext_resource type="Script" uid="uid://cwv5xrognbvs0" path="res://Objetos/Personajes/gato.gd" id="3_b5rl0"]
 [ext_resource type="Resource" uid="uid://vrmhpyu771vk" path="res://Data/Equipo/Ollie.tres" id="4_ms2jd"]
 [ext_resource type="Resource" uid="uid://dcq0emnm8xy0a" path="res://Data/Enemigos/GatoEnemigo.tres" id="5_58pn8"]
 
@@ -20,30 +19,24 @@ position = Vector2(480, 270)
 
 [node name="GatoOllie" parent="Node2D" unique_id=1098810970 instance=ExtResource("2_016k1")]
 position = Vector2(279, 407)
-script = ExtResource("3_b5rl0")
 data = ExtResource("4_ms2jd")
 
 [node name="GatoOllie2" parent="Node2D" unique_id=473086210 instance=ExtResource("2_016k1")]
 position = Vector2(130, 343)
-script = ExtResource("3_b5rl0")
 data = ExtResource("4_ms2jd")
 
 [node name="GatoOllie3" parent="Node2D" unique_id=1360874794 instance=ExtResource("2_016k1")]
 position = Vector2(131, 447)
-script = ExtResource("3_b5rl0")
 data = ExtResource("4_ms2jd")
 
 [node name="GatoEnemigo" parent="Node2D" unique_id=1873736662 instance=ExtResource("2_016k1")]
 position = Vector2(809, 451)
-script = ExtResource("3_b5rl0")
 data = ExtResource("5_58pn8")
 
 [node name="GatoEnemigo2" parent="Node2D" unique_id=1809660034 instance=ExtResource("2_016k1")]
 position = Vector2(697, 404)
-script = ExtResource("3_b5rl0")
 data = ExtResource("5_58pn8")
 
 [node name="GatoEnemigo3" parent="Node2D" unique_id=36769589 instance=ExtResource("2_016k1")]
 position = Vector2(621, 334)
-script = ExtResource("3_b5rl0")
 data = ExtResource("5_58pn8")
