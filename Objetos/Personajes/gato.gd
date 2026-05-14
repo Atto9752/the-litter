@@ -14,6 +14,7 @@ var regresar_posicion : bool = false
 
 #variables personaje
 var gato_objetivo
+var defendiendo : bool = false
 
 
 # ACCIONES QUE SE ACTIVAN APENAS SE ABRE EL JUEGO
@@ -24,6 +25,7 @@ func _ready():
 	
 	componente_salud.salud_maxima = data.salud_maxima
 	componente_salud.salud_actual = data.salud_maxima
+	componente_salud.defensa = data.defensa
 	componente_salud.update_progress_bar()
 	
 	# conexiones generales para todos los gatitos
@@ -42,8 +44,9 @@ func _ready():
 		Manager.connect("ocultar_indicadores_aliados", ocultar_aliado_seleccionado)
 
 
+# PARA ABRIR PANEL DE MENU
 func _on_panel_gui_input(event: InputEvent):
-	if componente_salud.sin_salud: return
+	if componente_salud.sin_salud or Manager.batalla_finalizada: return
 	
 	if data.jugador:
 		if Input.is_action_just_pressed("click_izquierdo") and Manager.puede_abrir_menu and Manager.turno_jugador:
@@ -57,7 +60,7 @@ func _on_panel_gui_input(event: InputEvent):
 
 # ANIMACION para que el gato se acerque a atacar al otro
 func _physics_process(delta):
-	if componente_salud.sin_salud: return
+	if componente_salud.sin_salud or Manager.batalla_finalizada: return
 	
 	# IR HACIA EL ENEMIGO
 	if gato_objetivo != null and not atacando and not regresar_posicion:
@@ -112,6 +115,16 @@ func _physics_process(delta):
 func atacar_enemigo(target):
 	gato_objetivo = target
 
+func defenderse():
+	componente_salud.defensa = data.defensa*2
+	defendiendo = true
+	Manager.cambiar_turno()
+	Manager.puede_abrir_menu = true
+
+
+func quitar_defensa():
+	componente_salud.defensa = data.defensa
+
 
 
 
@@ -131,10 +144,12 @@ func ocultar_aliado_seleccionado():
 
 
 
+# FUNCIONES VISUALES
+
 func _on_animation_finished():
 	if animation.animation == "attack":
 		if gato_objetivo and gato_objetivo.has_node("ComponenteSalud"):
-			gato_objetivo.componente_salud.recibir_danio(data.danio)
+			gato_objetivo.componente_salud.recibir_danio(data.danio, data.prob_critico, data.multip_danio)
 			print("Hacer daño al personaje")
 		
 		gato_objetivo = null
@@ -149,6 +164,9 @@ func _on_animation_finished():
 
 func _on_componente_salud_danio_recibido() -> void:
 	animation.play("hurt")
+	defendiendo = false
+	quitar_defensa()
+
 
 func _on_componente_salud_salud_cero() -> void:
 	animation.play("dead")

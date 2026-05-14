@@ -9,10 +9,13 @@ var salud_maxima : float
 var salud_actual : float
 var sin_salud : bool = false
 
-func recibir_danio(cantidad: float):
+var defensa : float
+
+
+func recibir_danio(cantidad: float, prob: float, aumento: float):
 	if sin_salud: return
 	
-	salud_actual = salud_actual - cantidad
+	salud_actual = calcular_danio(cantidad, prob, aumento)
 	salud_actual = clamp(salud_actual, 0 , salud_maxima) # para evitar salud negativa
 	
 	update_progress_bar()
@@ -22,6 +25,18 @@ func recibir_danio(cantidad: float):
 		sin_salud = true
 	else:
 		danio_recibido.emit()
+
+
+func calcular_danio(cantidad: float, prob: float, aumento: float) -> float:
+	var resultado = cantidad
+	# Calcular el daño
+	if (randf_range(0,1)) >= prob:
+		resultado = cantidad*aumento
+		
+	# Calcular defensa
+	resultado = resultado / defensa
+	
+	return resultado
 
 
 func update_progress_bar():

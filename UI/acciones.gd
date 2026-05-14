@@ -19,6 +19,7 @@ func _on_boton_atacar_button_down() -> void:
 
 func _on_boton_defender_button_down() -> void:
 	cerrar_menu()
+	Manager.defender_gato()
 	print("DEFENDER")
 
 func _on_boton_grunido_button_down() -> void:
