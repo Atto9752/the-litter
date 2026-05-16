@@ -1,0 +1,8 @@
+# Archivos temporales y caché de Godot 4
+.godot/
+
+# Configuración local de VS Code (aquí se guardan rutas absolutas)
+.vscode/
+
+# Configuración de compilación o datos locales si los hubiera
+*.log
