@@ -31,6 +31,13 @@ func obtener_personajes():
 	if enemigos.size() == 0:
 		print("¡Has ganado!")
 		batalla_finalizada = true
+
+		var carteles = get_tree().get_nodes_in_group("mensaje_victoria")
+		if carteles.size() > 0:
+			var cartel_animado = carteles[0]
+			cartel_animado.visible = true
+			cartel_animado.play("aparecer_victoria") 
+
 	elif aliados.size() == 0:
 		print("Has perdido")
 		batalla_finalizada = true
@@ -93,7 +100,7 @@ func iniciar_turno_enemigo():
 	var objetivo = aliados.pick_random()
 	
 	# para que el ataque sea mas frecuente que la defensa
-	if (randf_range(0,100) < 0.75):
+	if (randf_range(0,100) < 75):
 		# atacar
 		seleccion_gato_equipo(enemigo_actual)
 		seleccion_gato_enemigo(objetivo)

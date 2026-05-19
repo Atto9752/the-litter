@@ -15,7 +15,7 @@ var defensa : float
 func recibir_danio(cantidad: float, prob: float, aumento: float):
 	if sin_salud: return
 	
-	salud_actual = calcular_danio(cantidad, prob, aumento)
+	salud_actual -= calcular_danio(cantidad, prob, aumento)
 	salud_actual = clamp(salud_actual, 0 , salud_maxima) # para evitar salud negativa
 	
 	update_progress_bar()
@@ -30,11 +30,11 @@ func recibir_danio(cantidad: float, prob: float, aumento: float):
 func calcular_danio(cantidad: float, prob: float, aumento: float) -> float:
 	var resultado = cantidad
 	# Calcular el daño
-	if (randf_range(0,1)) >= prob:
+	if (randf_range(0,1)) <= prob:
 		resultado = cantidad*aumento
 		
 	# Calcular defensa
-	resultado = resultado / defensa
+	resultado = resultado * defensa
 	
 	return resultado
 
