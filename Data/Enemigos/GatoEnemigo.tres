@@ -7,5 +7,5 @@ script = ExtResource("1_b5g4k")
 jugador = false
 defensa = 0.8
 evasion = 0.1
-danio = 75.0
+danio = 25.0
 metadata/_custom_type_script = "uid://bu34252hrl4bs"

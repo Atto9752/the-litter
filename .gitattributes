@@ -1,2 +1,18 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Forzar saltos de línea LF para archivos de configuración y código de Godot
+# Esto hace que desaparezcan los warnings de LF/CRLF en Windows
+*.godot text eol=lf
+*.gd text eol=lf
+*.tscn text eol=lf
+*.tres text eol=lf
+*.import text eol=lf
+*.cfg text eol=lf
+
+# Asegurar que los archivos binarios no sean tocados por Git
+*.png binary
+*.webp binary
+*.wav binary
+*.ogg binary
+*.mp3 binary
