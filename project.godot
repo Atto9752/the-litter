@@ -22,8 +22,12 @@ Manager="*uid://p4y8ve28yem0"
 
 [dialogic]
 
-directories/dch_directory={}
-directories/dtl_directory={}
+directories/dch_directory={
+"Pantera": "res://Dialogic/Personajes/Pantera/Pantera.dch"
+}
+directories/dtl_directory={
+"Intro_v_1": "res://Dialogic/Timeline/Intro_v_1.dtl"
+}
 layout/style_directory={}
 glossary/default_case_sensitive=true
 layout/style_list=[]
