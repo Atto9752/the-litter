@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cqk8eg8lijswu" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Death.png" id="2_vksx1"]
 [ext_resource type="Texture2D" uid="uid://otum2r2fcanm" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Hurt.png" id="3_iragc"]
 [ext_resource type="Texture2D" uid="uid://cce22cx6cwutx" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Idle.png" id="4_375mc"]
+[ext_resource type="Texture2D" uid="uid://7ifhal21v2dc" path="res://Assets/UI/CatUIPaid/gruñido.png" id="4_wjmpy"]
 [ext_resource type="Texture2D" uid="uid://bnnxrwl1ce5lg" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Walk.png" id="5_wjmpy"]
 [ext_resource type="PackedScene" uid="uid://dwdh3tv3cppry" path="res://Objetos/Componentes/componente_salud.tscn" id="7_375mc"]
 [ext_resource type="PackedScene" uid="uid://dv68tvtu4l2ln" path="res://UI/acciones.tscn" id="7_iragc"]
@@ -43,6 +44,26 @@ region = Rect2(96, 0, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_03xe1"]
 atlas = ExtResource("2_vksx1")
 region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oq6l4"]
+atlas = ExtResource("4_wjmpy")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmub6"]
+atlas = ExtResource("4_wjmpy")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5xlt"]
+atlas = ExtResource("4_wjmpy")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_me143"]
+atlas = ExtResource("4_wjmpy")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lo2eo"]
+atlas = ExtResource("4_wjmpy")
+region = Rect2(192, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ajf2t"]
 atlas = ExtResource("3_iragc")
@@ -130,6 +151,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_oq6l4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmub6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5xlt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_me143")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lo2eo")
+}],
+"loop": false,
+"name": &"grunido",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ajf2t")
 }, {
 "duration": 1.0,
@@ -198,7 +239,9 @@ shape = SubResource("RectangleShape2D_fc74l")
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=155168672]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_oq6l4")
-animation = &"hurt"
+animation = &"grunido"
+frame = 4
+frame_progress = 1.0
 
 [node name="Acciones" parent="." unique_id=1496839050 instance=ExtResource("7_iragc")]
 z_index = 10
