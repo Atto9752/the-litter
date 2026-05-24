@@ -22,12 +22,20 @@ Manager="*uid://p4y8ve28yem0"
 
 [dialogic]
 
-directories/dch_directory={}
-directories/dtl_directory={}
-layout/style_directory={}
+directories/dch_directory={
+"Ollie": "res://Personajes Dialogic/Ollie.dch",
+"Pantera": "res://Personajes Dialogic/Pantera.dch"
+}
+directories/dtl_directory={
+"intro_v1": "res://Timelines/intro_v1.dtl"
+}
+layout/style_directory={
+"": "res://Dialogic Styles/new_style_visual_novel.tres",
+"new_style_visual_novel": "res://Dialogic Styles/new_style_visual_novel.tres"
+}
 glossary/default_case_sensitive=true
-layout/style_list=[]
-layout/default_style="Default"
+layout/style_list=["res://Dialogic Styles/new_style_visual_novel.tres"]
+layout/default_style="res://Dialogic Styles/new_style_visual_novel.tres"
 variables={}
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
