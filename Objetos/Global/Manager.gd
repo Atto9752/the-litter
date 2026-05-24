@@ -32,9 +32,9 @@ func obtener_personajes():
 		print("¡Has ganado!")
 		batalla_finalizada = true
 
-		var carteles = get_tree().get_nodes_in_group("mensaje_victoria")
-		if carteles.size() > 0:
-			var cartel_animado = carteles[0]
+		var carteles_victoria = get_tree().get_nodes_in_group("mensaje_victoria")
+		if carteles_victoria.size() > 0:
+			var cartel_animado = carteles_victoria[0]
 			cartel_animado.visible = true
 			cartel_animado.play("aparecer_victoria") 
 
@@ -42,6 +42,11 @@ func obtener_personajes():
 		print("Has perdido")
 		batalla_finalizada = true
 
+		var carteles_derrota = get_tree().get_nodes_in_group("mensaje_derrota")
+		if carteles_derrota.size() > 0:
+			var cartel_animado = carteles_derrota[0]
+			cartel_animado.visible = true
+			cartel_animado.play("aparecer_derrota") 
 
 # para ir cambiando entre el turno del jugador y la ia
 func cambiar_turno():
