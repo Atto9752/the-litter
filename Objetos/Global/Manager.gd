@@ -16,6 +16,7 @@ var turno_enemigo : int = 0
 
 var batalla_finalizada : bool = false
 
+var tipo_accion : String = ""
 
 func registrar_gato(gato):
 	if gato.data.jugador:
@@ -58,6 +59,9 @@ func cambiar_turno():
 		# para quitar la defensa luego del turno del enemigo
 		for i in aliados:
 			i.quitar_defensa()
+		if aliados.size() > 0:
+			aliados[0].get_node("Panel").grab_focus() # para que el menu se abra con el primer gato del equipo seleccionado
+
 	else:
 		puede_abrir_menu = false
 		await get_tree().create_timer(1.5).timeout # pequeña pausa
@@ -69,6 +73,9 @@ func cambiar_turno():
 func mostrar_selec_gato_enemigo():
 	puede_abrir_menu = false
 	emit_signal("seleccion_enemigo")
+
+	if enemigos.size() > 0:
+		enemigos[0].get_node("Panel").grab_focus() # para que el menu se abra con el primer enemigo seleccionado
 
 func mostrar_selec_gato_equipo():
 	puede_abrir_menu = true
@@ -89,6 +96,12 @@ func iniciar_ataque():
 	puede_abrir_menu = false
 	gato_equipo.atacar_enemigo(gato_objetivo)
 
+	if tipo_accion == "attack":
+		gato_equipo.atacar_enemigo(gato_objetivo)
+
+	elif tipo_accion == "grunido":
+		gato_equipo.usar_grunido(gato_objetivo)  
+
 
 func defender_gato():
 	gato_equipo.defenderse()
@@ -102,6 +115,10 @@ func iniciar_turno_enemigo():
 	if enemigos.is_empty() or aliados.is_empty(): return # por seguridad
 	
 	var enemigo_actual = enemigos[turno_enemigo]
+
+	enemigo_actual.quitar_defensa()
+	enemigo_actual.procesar_turnos_estado()
+
 	var objetivo = aliados.pick_random()
 	
 	# para que el ataque sea mas frecuente que la defensa
