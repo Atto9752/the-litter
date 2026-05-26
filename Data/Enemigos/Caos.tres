@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PersonajeData" format=3 uid="uid://biwpfjk2sqmt7"]
+
+[ext_resource type="Script" uid="uid://bu34252hrl4bs" path="res://Data/PersonajeData.gd" id="1_b36je"]
+[ext_resource type="SpriteFrames" uid="uid://ho5t2atogsok" path="res://Assets/Personajes/Gatitos/Animaciones/animaciones_caos.tres" id="1_xtuns"]
+
+[resource]
+script = ExtResource("1_b36je")
+jugador = false
+animaciones_gato = ExtResource("1_xtuns")
+salud_maxima = 150.0
+defensa = 2.0
+evasion = 0.1
+danio = 75.0
+multip_danio = 1.5
+prob_critico = 0.2
+metadata/_custom_type_script = "uid://bu34252hrl4bs"

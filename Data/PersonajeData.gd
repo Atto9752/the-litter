@@ -3,6 +3,10 @@ class_name PersonajeData extends Resource
 # para saber si es un personaje controlado por el jugador:
 @export var jugador : bool = true
 
+# PARA ANIMACIONES PERSONALIZADAS POR PERSONAJES
+@export var animaciones_gato : SpriteFrames
+
+
 # valores del personaje durante la batalla por turnos:
 
 #estadisticas

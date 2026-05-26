@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cencyu8bug7ff" path="res://Assets/UI/Super Pixel Effects Gigapack (Free Version)/spritesheet/Symbols/symbol_game_over_text_001/symbol_game_over_text_001_large_red/spritesheet2.png" id="3_ms2jd"]
 [ext_resource type="Resource" uid="uid://vrmhpyu771vk" path="res://Data/Equipo/Ollie.tres" id="4_ms2jd"]
 [ext_resource type="Resource" uid="uid://dcq0emnm8xy0a" path="res://Data/Enemigos/GatoEnemigo.tres" id="5_58pn8"]
+[ext_resource type="Resource" uid="uid://b5u5gyqxqv1ww" path="res://Data/Equipo/Pantera.tres" id="5_jgt66"]
+[ext_resource type="Resource" uid="uid://biwpfjk2sqmt7" path="res://Data/Enemigos/Caos.tres" id="7_puggj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b5rl0"]
 atlas = ExtResource("2_b5rl0")
@@ -387,28 +389,20 @@ animation = &"aparecer_derrota"
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1558050029]
 
-[node name="GatoOllie" parent="Node2D" unique_id=1098810970 instance=ExtResource("2_016k1")]
-position = Vector2(279, 407)
-data = ExtResource("4_ms2jd")
-
-[node name="GatoOllie2" parent="Node2D" unique_id=473086210 instance=ExtResource("2_016k1")]
-position = Vector2(130, 343)
+[node name="GatoPantera" parent="Node2D" unique_id=473086210 instance=ExtResource("2_016k1")]
+position = Vector2(224, 347)
 collision_mask = 2
-data = ExtResource("4_ms2jd")
+data = ExtResource("5_jgt66")
 
-[node name="GatoOllie3" parent="Node2D" unique_id=1360874794 instance=ExtResource("2_016k1")]
+[node name="GatoOllie" parent="Node2D" unique_id=1360874794 instance=ExtResource("2_016k1")]
 position = Vector2(131, 447)
 collision_mask = 2
 data = ExtResource("4_ms2jd")
 
+[node name="GatoCaos" parent="Node2D" unique_id=1809660034 instance=ExtResource("2_016k1")]
+position = Vector2(697, 404)
+data = ExtResource("7_puggj")
+
 [node name="GatoEnemigo" parent="Node2D" unique_id=1873736662 instance=ExtResource("2_016k1")]
 position = Vector2(809, 451)
-data = ExtResource("5_58pn8")
-
-[node name="GatoEnemigo2" parent="Node2D" unique_id=1809660034 instance=ExtResource("2_016k1")]
-position = Vector2(697, 404)
-data = ExtResource("5_58pn8")
-
-[node name="GatoEnemigo3" parent="Node2D" unique_id=36769589 instance=ExtResource("2_016k1")]
-position = Vector2(621, 334)
 data = ExtResource("5_58pn8")

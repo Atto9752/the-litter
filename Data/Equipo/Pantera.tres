@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PersonajeData" format=3 uid="uid://b5u5gyqxqv1ww"]
+
+[ext_resource type="SpriteFrames" uid="uid://6fqflat8t2lx" path="res://Assets/Personajes/Gatitos/Animaciones/animaciones_pantera.tres" id="1_7inxl"]
+[ext_resource type="Script" uid="uid://bu34252hrl4bs" path="res://Data/PersonajeData.gd" id="1_nfgxp"]
+
+[resource]
+script = ExtResource("1_nfgxp")
+animaciones_gato = ExtResource("1_7inxl")
+salud_maxima = 150.0
+defensa = 3.0
+evasion = 0.35
+danio = 75.0
+multip_danio = 1.5
+metadata/_custom_type_script = "uid://bu34252hrl4bs"

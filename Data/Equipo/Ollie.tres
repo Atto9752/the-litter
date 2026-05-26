@@ -1,8 +1,10 @@
 [gd_resource type="Resource" script_class="PersonajeData" format=3 uid="uid://vrmhpyu771vk"]
 
 [ext_resource type="Script" uid="uid://bu34252hrl4bs" path="res://Data/PersonajeData.gd" id="1_bkd64"]
+[ext_resource type="SpriteFrames" uid="uid://5v58bwhqjd7r" path="res://Assets/Personajes/Gatitos/Animaciones/animaciones_ollie.tres" id="1_jjsx4"]
 
 [resource]
 script = ExtResource("1_bkd64")
+animaciones_gato = ExtResource("1_jjsx4")
 danio = 75.0
 metadata/_custom_type_script = "uid://bu34252hrl4bs"
