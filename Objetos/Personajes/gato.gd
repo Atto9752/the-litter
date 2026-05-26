@@ -3,7 +3,9 @@ class_name Gato extends CharacterBody2D
 @export var data : PersonajeData
 @onready var animation: AnimatedSprite2D = $Animation
 @onready var componente_salud: Node = $ComponenteSalud
-
+@onready var efecto_estado = $EfectoEstado
+@onready var icono_debuff_izq = $IconoDebuffIzq
+@onready var icono_debuff_der = $IconoDebuffDer
 
 const VELOCIDAD = 400.0
 
@@ -12,10 +14,15 @@ var atacando : bool = false
 var posicion_inicial : Vector2
 var regresar_posicion : bool = false
 
+# Esta variable guardará el ícono correcto que usará este gato en particular
+var icono_debuff_actual : Sprite2D 
+
 #variables personaje
 var gato_objetivo
 var defendiendo : bool = false
 
+var turnos_grunido : int = 0
+var penalizacion_defensa : float = 0.0
 
 # ACCIONES QUE SE ACTIVAN APENAS SE ABRE EL JUEGO
 func _ready():
@@ -38,22 +45,24 @@ func _ready():
 		add_to_group("Enemigos")
 		animation.flip_h = true
 		Manager.connect("seleccion_enemigo", mostrar_enemigo_seleccionado)
+		icono_debuff_actual = icono_debuff_der
+
 	else:
 		# para q los aliados escuchen la indicacion de apagar su indicador verde
 		add_to_group("Aliados")
 		Manager.connect("ocultar_indicadores_aliados", ocultar_aliado_seleccionado)
-
+		icono_debuff_actual = icono_debuff_izq
 
 # PARA ABRIR PANEL DE MENU
 func _on_panel_gui_input(event: InputEvent):
 	if componente_salud.sin_salud or Manager.batalla_finalizada: return
 	
 	if data.jugador:
-		if Input.is_action_just_pressed("click_izquierdo") and Manager.puede_abrir_menu and Manager.turno_jugador:
+		if Input.is_action_just_pressed("click_izquierdo") or event.is_action_pressed("ui_accept")and Manager.puede_abrir_menu and Manager.turno_jugador:
 			$Acciones.abrir_menu()
 			Manager.seleccion_gato_equipo(self)
 	else:
-		if Input.is_action_just_pressed("click_izquierdo") and $Seleccion_enemigo.visible:
+		if Input.is_action_just_pressed("click_izquierdo") or event.is_action_pressed("ui_accept") and $Seleccion_enemigo.visible:
 			Manager.seleccion_gato_enemigo(self)
 			Manager.iniciar_ataque()
 
@@ -116,17 +125,45 @@ func atacar_enemigo(target):
 	gato_objetivo = target
 
 func defenderse():
-	componente_salud.defensa = data.defensa*2
+	componente_salud.defensa = (data.defensa + penalizacion_defensa)/2 
 	defendiendo = true
 	Manager.cambiar_turno()
 	Manager.puede_abrir_menu = true
 
 
 func quitar_defensa():
-	componente_salud.defensa = data.defensa
+	componente_salud.defensa = data.defensa + penalizacion_defensa 
 
+func usar_grunido(target):
+	gato_objetivo = target
+	atacando = true 
+	animation.play("grunido")
 
+func recibir_grunido():
+	turnos_grunido = 2
+	penalizacion_defensa = 0.4
+	quitar_defensa() 
+	print("¡Defensa vulnerada por 2 turnos!")
+	animation.play("def_down") 
 
+	efecto_estado.visible = true 
+	if data.jugador:
+		efecto_estado.play("anim_def_down")
+	else:
+		efecto_estado.play("anim_def_down_enemy")
+
+	if icono_debuff_actual:
+		icono_debuff_actual.visible = true
+
+func procesar_turnos_estado():
+	if turnos_grunido > 0:
+		turnos_grunido -= 1 
+		if turnos_grunido <= 0:
+			penalizacion_defensa = 0.0
+			quitar_defensa() 
+			if icono_debuff_actual:
+				icono_debuff_actual.visible = false
+			print("El efecto de gruñido desapareció. Defensa normalizada.")
 
 
 ### FUNCIONES DEL MARCADOR ###
@@ -156,8 +193,17 @@ func _on_animation_finished():
 		atacando = false
 		regresar_posicion = true
 		Manager.puede_abrir_menu = true
+
+	elif animation.animation == "grunido":
+		if gato_objetivo:
+			gato_objetivo.recibir_grunido() 
+			
+		gato_objetivo = null
+		atacando = false
+		animation.play("idle")
+		Manager.cambiar_turno()	
 		
-	elif animation.animation == "hurt":
+	elif animation.animation == "hurt" or animation.animation == "def_down":
 		animation.play("idle")
 		
 
@@ -178,3 +224,7 @@ func _on_componente_salud_salud_cero() -> void:
 		remove_from_group("Enemigos")
 	
 	Manager.obtener_personajes()
+
+
+func _on_efecto_estado_animation_finished() -> void:
+	efecto_estado.visible = false 

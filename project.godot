@@ -19,14 +19,18 @@ config/icon="res://icon.svg"
 
 Dialogic="*uid://ds2q0uclmolvu"
 Manager="*uid://p4y8ve28yem0"
+CursorGlobal="*uid://d3qlcet2omwj2"
 
 [dialogic]
 
 directories/dch_directory={
-"Pantera": "res://Dialogic/Personajes/Pantera/Pantera.dch"
+"Ollie": "res://Personajes Dialogic/Ollie.dch",
+"Pantera": "res://Dialogic/Personajes/Pantera/Pantera.dch",
+"Personajes Dialogic/Pantera": "res://Personajes Dialogic/Pantera.dch"
 }
 directories/dtl_directory={
-"Intro_v_1": "res://Dialogic/Timeline/Intro_v_1.dtl"
+"Intro_v_1": "res://Dialogic/Timeline/Intro_v_1.dtl",
+"intro_v1": "res://Timelines/intro_v1.dtl"
 }
 layout/style_directory={}
 glossary/default_case_sensitive=true

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d3qlcet2omwj2"]
+
+[ext_resource type="Script" uid="uid://v64gmtec0044" path="res://UI/cursor_global.gd" id="1_3pw6p"]
+[ext_resource type="Texture2D" uid="uid://bq0wv7wiqgiit" path="res://Assets/UI/CatUIPaid/catcursor.png" id="1_05o42"]
+
+[node name="CursorGlobal" type="CanvasLayer" unique_id=1745330092]
+layer = 100
+script = ExtResource("1_3pw6p")
+
+[node name="IconoCursor" type="Sprite2D" parent="." unique_id=441908812]
+texture_filter = 1
+position = Vector2(0, 1.9073486e-06)
+scale = Vector2(1.7530121, 1.6851852)
+texture = ExtResource("1_05o42")
