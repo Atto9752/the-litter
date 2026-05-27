@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://32mn7ngeqsx4" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Attack.png" id="1_nbbvw"]
 [ext_resource type="Texture2D" uid="uid://cqk8eg8lijswu" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Death.png" id="2_1ndd0"]
+[ext_resource type="Texture2D" uid="uid://bbqny41ebys5e" path="res://Assets/UI/CatUIPaid/Def_down.png" id="3_1ndd0"]
 [ext_resource type="Texture2D" uid="uid://otum2r2fcanm" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Hurt.png" id="3_k75d5"]
 [ext_resource type="Texture2D" uid="uid://cce22cx6cwutx" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Idle.png" id="4_60loo"]
 [ext_resource type="Texture2D" uid="uid://bnnxrwl1ce5lg" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Walk.png" id="5_hyd1o"]
@@ -37,6 +38,14 @@ region = Rect2(96, 0, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_tn25n"]
 atlas = ExtResource("2_1ndd0")
 region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k75d5"]
+atlas = ExtResource("3_1ndd0")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60loo"]
+atlas = ExtResource("3_1ndd0")
+region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4wwvn"]
 atlas = ExtResource("1_nbbvw")
@@ -121,7 +130,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a4x4b")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -138,8 +147,19 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tn25n")
 }],
-"loop": true,
+"loop": false,
 "name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k75d5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60loo")
+}],
+"loop": false,
+"name": &"def_down",
 "speed": 5.0
 }, {
 "frames": [{
@@ -158,7 +178,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_83cw6")
 }],
-"loop": true,
+"loop": false,
 "name": &"grunido",
 "speed": 5.0
 }, {
@@ -169,7 +189,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1fcjs")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
 "speed": 5.0
 }, {

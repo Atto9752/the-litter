@@ -527,7 +527,7 @@ shape = SubResource("RectangleShape2D_fc74l")
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=155168672]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_oq6l4")
-animation = &"def_down"
+animation = &"grunido"
 
 [node name="Acciones" parent="." unique_id=1496839050 instance=ExtResource("7_iragc")]
 z_index = 10
