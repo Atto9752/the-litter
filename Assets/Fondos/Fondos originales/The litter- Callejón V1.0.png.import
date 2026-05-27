@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2lnwiy6ytss7"
-path="res://.godot/imported/Gato negro2 (Pixel).png-e6151288aa31076f2518b830f1abbdbd.ctex"
+uid="uid://b0m30wu85dlxj"
+path="res://.godot/imported/The litter- Callejón V1.0.png-f8675b23182c38ef8cd236a3bb0bcb38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets Dialogic/Gato negro2 (Pixel).png"
-dest_files=["res://.godot/imported/Gato negro2 (Pixel).png-e6151288aa31076f2518b830f1abbdbd.ctex"]
+source_file="res://Assets/Fondos/Fondos originales/The litter- Callejón V1.0.png"
+dest_files=["res://.godot/imported/The litter- Callejón V1.0.png-f8675b23182c38ef8cd236a3bb0bcb38.ctex"]
 
 [params]
 
