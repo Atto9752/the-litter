@@ -94,7 +94,6 @@ func iniciar_ataque():
 	emit_signal("ataque_iniciado")
 	emit_signal("ocultar_indicadores_aliados")
 	puede_abrir_menu = false
-	gato_equipo.atacar_enemigo(gato_objetivo)
 
 	if tipo_accion == "attack":
 		gato_equipo.atacar_enemigo(gato_objetivo)

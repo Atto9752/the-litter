@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cqfpgtrdamxh8" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Attack.png" id="1_rkxjr"]
 [ext_resource type="Texture2D" uid="uid://bvfg33e38cy6y" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Death.png" id="2_qpax4"]
 [ext_resource type="Texture2D" uid="uid://bp4qa3g8xwho0" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Hurt.png" id="3_e2duj"]
+[ext_resource type="Texture2D" uid="uid://obkxcg7revsh" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/def_down_pan.png" id="3_qpax4"]
 [ext_resource type="Texture2D" uid="uid://dghil1iyt2efa" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Idle.png" id="4_pt3re"]
 [ext_resource type="Texture2D" uid="uid://de4sxysb2o0pd" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Walk.png" id="5_uj3mr"]
 
@@ -37,6 +38,14 @@ region = Rect2(96, 0, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xdyue"]
 atlas = ExtResource("2_qpax4")
 region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2duj"]
+atlas = ExtResource("3_qpax4")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pt3re"]
+atlas = ExtResource("3_qpax4")
+region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lw6bq"]
 atlas = ExtResource("1_rkxjr")
@@ -121,7 +130,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fe4le")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -138,8 +147,19 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xdyue")
 }],
-"loop": true,
+"loop": false,
 "name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2duj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pt3re")
+}],
+"loop": false,
+"name": &"def_down",
 "speed": 5.0
 }, {
 "frames": [{
@@ -158,7 +178,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_em1bx")
 }],
-"loop": true,
+"loop": false,
 "name": &"grunido",
 "speed": 5.0
 }, {
@@ -169,7 +189,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_eggnx")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
 "speed": 5.0
 }, {

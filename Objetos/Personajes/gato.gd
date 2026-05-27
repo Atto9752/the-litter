@@ -30,12 +30,9 @@ func _ready():
 	# Asignar animaciones personalizadas desde el Resource antes de reproducir
 	if data and data.animaciones_gato:
 		animation.sprite_frames = data.animaciones_gato
+		
 	animation.animation_finished.connect(_on_animation_finished)
 	animation.play("idle") # reproducir el idle del gato correspondiente
-	posicion_inicial = global_position
-	
-	animation.animation_finished.connect(_on_animation_finished)
-	animation.play("idle")
 	posicion_inicial = global_position
 	
 	componente_salud.salud_maxima = data.salud_maxima
