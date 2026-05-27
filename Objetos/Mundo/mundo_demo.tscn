@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dpfb1ua1wd00s"]
 
-[ext_resource type="Texture2D" uid="uid://cotja0nyn2o2x" path="res://Assets/Fondos/craftpix-street-2d-backgrounds/PNG/City1/Bright/City1.png" id="1_mgt18"]
+[ext_resource type="Texture2D" uid="uid://b0m30wu85dlxj" path="res://Assets/Fondos/Fondos originales/The litter- Callejón V1.0.png" id="1_puggj"]
 [ext_resource type="PackedScene" uid="uid://ojmxv360lnag" path="res://Objetos/Personajes/gato.tscn" id="2_016k1"]
 [ext_resource type="Texture2D" uid="uid://buie7he4xji0h" path="res://Assets/UI/Super Pixel Effects Gigapack (Free Version)/spritesheet/Symbols/symbol_cool_text_001/symbol_cool_text_001_large_blue/spritesheet2.png" id="2_b5rl0"]
 [ext_resource type="Texture2D" uid="uid://cencyu8bug7ff" path="res://Assets/UI/Super Pixel Effects Gigapack (Free Version)/spritesheet/Symbols/symbol_game_over_text_001/symbol_game_over_text_001_large_red/spritesheet2.png" id="3_ms2jd"]
@@ -363,10 +363,10 @@ animations = [{
 
 [node name="MundoDemo" type="Node2D" unique_id=150942624]
 
-[node name="City1" type="Sprite2D" parent="." unique_id=2080584730]
-position = Vector2(480, 269)
-scale = Vector2(0.5041666, 0.5041666)
-texture = ExtResource("1_mgt18")
+[node name="Callejon" type="Sprite2D" parent="." unique_id=1180407855]
+position = Vector2(479.00003, 271)
+scale = Vector2(0.65283334, 0.9254166)
+texture = ExtResource("1_puggj")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1207728552]
 position = Vector2(480, 270)
