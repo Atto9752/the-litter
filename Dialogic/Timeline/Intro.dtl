@@ -1,5 +1,4 @@
 [background arg="#000000ff" fade="0.0"]
-[wait_input]
 audio "res://Assets/Música/What cat (Incompleto).mp3"
 . . .
 Qué sensación tan agradable.

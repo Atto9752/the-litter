@@ -1,0 +1,16 @@
+[background arg="res://Assets/Fondos/Fondos originales/Almacén V1.0.png" fade="0.0"]
+join Ollie right
+Ollie: Eso estuvo cerca...
+leave Ollie
+join Pantera left
+Pantera: Esos gatos. . .
+Pantera: Sabían que esa es parte de nuestro territorio.
+Pantera: Por poco y no la contamos.
+Pantera: Lo hiciste bastante bien ahí muchacho.
+Pantera: Pero no creo que se rindan tan fácilmente.
+Pantera: ! ! !
+Pantera: ¡Vienen mas!
+leave Pantera
+join NaranjoPeludo right
+NaranjoPeludo: ¡Miauuuuuu!
+leave NaranjoPeludo

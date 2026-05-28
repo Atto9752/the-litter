@@ -25,6 +25,7 @@ CursorGlobal="*uid://d3qlcet2omwj2"
 
 directories/dch_directory={
 "Caos": "res://Dialogic/Personajes/Caos.dch",
+"NaranjoPeludo": "res://Dialogic/Personajes/NaranjoPeludo.dch",
 "Ollie": "res://Dialogic/Personajes/Ollie.dch",
 "Pantera": "res://Dialogic/Personajes/Pantera.dch"
 }

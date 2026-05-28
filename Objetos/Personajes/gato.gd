@@ -31,6 +31,9 @@ var penalizacion_defensa : float = 0.0
 var turnos_bufido : int = 0
 var penalizacion_evasion : float = 0.0
 var evasion_actual : float = 0.2
+# Variables para la huida narrativa al final de la pelea
+var huyendo : bool = false
+var destino_huida : Vector2 = Vector2.ZERO
 
 
 
@@ -39,6 +42,15 @@ var evasion_actual : float = 0.2
 # ------------------------------------------------------------------------------------------ #
 
 func _ready():
+	
+	# --- RESETEAR VARIABLES DE VISIBILIDAD PARA NUEVAS BATALLAS ---
+	visible = true # Nos aseguramos de que el gato sea completamente visible
+	set_physics_process(true) # Forzamos a que el código de movimiento funcione
+	huyendo = false # Apagamos el estado de huida de la batalla anterior
+	atacando = false
+	regresar_posicion = false
+	gato_objetivo = null
+	# --------------------------------------------------------------
 	
 	# valores iniciales
 	evasion_actual = data.evasion
@@ -91,6 +103,26 @@ func _on_panel_gui_input(event: InputEvent):
 
 # ANIMACION para que el gato se acerque a atacar al otro
 func _physics_process(delta):
+	
+	if Manager.batalla_finalizada and not huyendo: 
+		velocity = Vector2.ZERO
+		return
+	
+	if huyendo:
+		var distancia = global_position.distance_to(destino_huida)
+		if distancia > 10.0:
+			var direccion = (destino_huida - global_position).normalized()
+			velocity = VELOCIDAD * direccion
+			move_and_slide()
+			if animation.animation != "walk":
+				animation.play("walk")
+		else:
+			# Ya salió de la pantalla, lo hacemos invisible y apagamos su procesamiento
+			velocity = Vector2.ZERO
+			visible = false
+			set_physics_process(false)
+		return # Cortamos la ejecución para que no haga nada del combate antiguo
+	
 	if componente_salud.sin_salud or Manager.batalla_finalizada: return
 	
 	# IR HACIA EL ENEMIGO
@@ -209,7 +241,46 @@ func procesar_turnos_estado():
 			print("El efecto de bufido desapareció. Evasión normalizada.")
 
 
-
+func ejecutar_fin_batalla(gana_jugador: bool):
+	# Limpiamos estados de combate por seguridad
+	gato_objetivo = null
+	atacando = false
+	regresar_posicion = false
+	$Salud.visible = false # Ocultamos barras de vida flotantes
+	
+	if data.jugador:
+		# --- LÓGICA PARA TUS GATOS ALIADOS ---
+		if componente_salud.sin_salud:
+			# Si perdimos pero somos aliados, nos levantamos del knockout
+			componente_salud.sin_salud = false 
+			animation.play("idle")
+		
+		if gana_jugador:
+			# Si ganamos, caminamos elegantemente de regreso a nuestra posición inicial de descanso
+			global_position = posicion_inicial
+			animation.play("idle")
+		else:
+			# Si perdimos, nos volteamos a la izquierda y huimos hacia atrás de la pantalla
+			animation.flip_h = true
+			destino_huida = Vector2(-200, global_position.y) # Fuera de pantalla por la izquierda
+			huyendo = true
+	else:
+		# --- LÓGICA PARA LOS GATOS ENEMIGOS ---
+		if componente_salud.sin_salud:
+			# Reviven del knockout para poder escapar de la escena
+			componente_salud.sin_salud = false
+			animation.play("idle")
+		
+		if gana_jugador:
+			# Si el jugador ganó, los enemigos se voltean a la derecha y huyen despavoridos
+			animation.flip_h = false # Mirando a la derecha
+			destino_huida = Vector2(1600, global_position.y) # Fuera de pantalla por la derecha
+			huyendo = true
+			animation.play("walk")
+		else:
+			# Si el enemigo ganó, se quedan en su posición celebrando en idle
+			global_position = posicion_inicial
+			animation.play("idle")
 
 
 
@@ -284,11 +355,6 @@ func _on_componente_salud_danio_recibido() -> void:
 func _on_componente_salud_salud_cero() -> void:
 	animation.play("dead")
 	$Salud.visible = false
-	
-	if data.jugador:
-		remove_from_group("Aliados")
-	else:
-		remove_from_group("Enemigos")
 	
 	Manager.obtener_personajes()
 

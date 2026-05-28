@@ -14,6 +14,7 @@ var turno_enemigo : int = 0
 var batalla_finalizada : bool = false
 var tipo_accion : String = ""
 var seleccionando_objetivo : bool = false
+var numero_batalla : int = 1  # Comenzamos en la Batalla 1
 
 # nuevas variables para turnos tipo rpg x turnos clasico
 var acciones_planificadas : Array = [] # guarda diccionarios con {gato_origen, tipo_accion, gato_objetivo} etc
@@ -29,29 +30,53 @@ func registrar_gato(gato):
 
 
 func obtener_personajes():
-	enemigos = get_tree().get_nodes_in_group("Enemigos")
-	aliados = get_tree().get_nodes_in_group("Aliados")
+	# Filtramos usando el componente de salud para saber quiénes siguen activos físicamente
+	enemigos = get_tree().get_nodes_in_group("Enemigos").filter(func(e): return !e.componente_salud.sin_salud)
+	aliados = get_tree().get_nodes_in_group("Aliados").filter(func(a): return !a.componente_salud.sin_salud)
+	
+	# Conseguimos la lista TOTAL de nodos gato en la escena (vivos y no vivos)
+	var todos_los_gatos = get_tree().get_nodes_in_group("Aliados") + get_tree().get_nodes_in_group("Enemigos")
 	
 	if enemigos.size() == 0:
 		print("¡Has ganado!")
 		batalla_finalizada = true
+		puede_abrir_menu = false
+		
+		for gato in todos_los_gatos:
+			gato.ejecutar_fin_batalla(true) # true = Ganó el jugador
+		
+		await get_tree().create_timer(2.5).timeout
 		
 		var carteles_victoria = get_tree().get_nodes_in_group("mensaje_victoria")
 		
 		if carteles_victoria.size() > 0:
-			var cartel_animado = carteles_victoria[0]
-			cartel_animado.visible = true
-			cartel_animado.play("aparecer_victoria") 
+			carteles_victoria[0].visible = true
+			carteles_victoria[0].play("aparecer_victoria")
+			# --- NUEVA EVALUACIÓN SEGÚN LA BATALLA ---
+			if numero_batalla == 1:
+				if not carteles_victoria[0].animation_finished.is_connected(_al_terminar_animacion_victoria):
+					carteles_victoria[0].animation_finished.connect(_al_terminar_animacion_victoria)
+			elif numero_batalla == 2:
+				if not carteles_victoria[0].animation_finished.is_connected(_al_terminar_animacion_batalla_2):
+					carteles_victoria[0].animation_finished.connect(_al_terminar_animacion_batalla_2)
+		
 		
 	elif aliados.size() == 0:
 		print("Has perdido")
 		batalla_finalizada = true
+		puede_abrir_menu = false
+		
+		for gato in todos_los_gatos:
+			gato.ejecutar_fin_batalla(false) # false = Perdió el jugador
+		
+		await get_tree().create_timer(2.5).timeout
+		
 		var carteles_derrota = get_tree().get_nodes_in_group("mensaje_derrota")
 		
 		if carteles_derrota.size() > 0:
-			var cartel_animado = carteles_derrota[0]
-			cartel_animado.visible = true
-			cartel_animado.play("aparecer_derrota") 
+			carteles_derrota[0].visible = true
+			carteles_derrota[0].play("aparecer_derrota")
+			# Si quieres que al perder también pase algo en la historia, puedes conectar su señal aquí
 	
 	# --- CONFIGURACIÓN DINÁMICA DE VECINOS PARA EL MANDO ---
 	# Si hay al menos dos enemigos vivos en la arena, los enlazamos para la cruceta
@@ -69,6 +94,70 @@ func obtener_personajes():
 			# Le asignamos los vecinos del foco explícitamente para el mando
 			panel_actual.focus_neighbor_left = panel_izq.get_path()
 			panel_actual.focus_neighbor_right = panel_der.get_path()
+
+
+# Nueva función para Dialogic al ganar
+func _al_terminar_animacion_victoria():
+	# Desconectamos para evitar duplicados
+	var carteles_victoria = get_tree().get_nodes_in_group("mensaje_victoria")
+	if carteles_victoria.size() > 0 and carteles_victoria[0].animation_finished.is_connected(_al_terminar_animacion_victoria):
+		carteles_victoria[0].animation_finished.disconnect(_al_terminar_animacion_victoria)
+	
+	# Ocultamos el cartel para que no tape los diálogos
+	carteles_victoria[0].visible = false
+	
+	# --- NUEVA LÓGICA PARA APAGAR LA MÚSICA ---
+	# Buscamos el nodo de música en la escena actual usando el árbol principal
+	var nodo_musica = get_tree().current_scene.get_node_or_null("MusicaBatallaTutorial")
+	if nodo_musica and nodo_musica is AudioStreamPlayer:
+		nodo_musica.stop() # Apaga la canción de la primera pelea inmediatamente
+		print("Música de la primera batalla detenida para los diálogos.")
+	
+	Dialogic.timeline_ended.connect(_al_terminar_timeline_guarida)
+	Dialogic.start("Guarida")
+
+func _al_terminar_timeline_guarida():
+	# Desconectamos por seguridad
+	Dialogic.timeline_ended.disconnect(_al_terminar_timeline_guarida)
+	
+	# RECOLECTAR PERSONAJES Y LIMPIAR EL MANAGER ANTES DEL VIAJE
+	acciones_planificadas.clear()
+	aliados_que_ya_eligieron.clear()
+	enemigos.clear()
+	aliados.clear()
+	batalla_finalizada = false
+	turno_enemigo = 0
+	
+	# --- ¡AQUÍ AÑADIMOS EL REINICIO DE TURNOS PARA EL JUGADOR! ---
+	turno_jugador = true        # Le devolvemos el turno al jugador humano
+	puede_abrir_menu = true     # Desbloqueamos los clics y el botón A del mando
+	ejecutando_acciones_en_cadena = false
+	
+	# --- NUEVA LÍNEA: Cambiamos oficialmente el indicador a la segunda batalla ---
+	numero_batalla = 2
+	
+	# 4. Cambiamos a la segunda escena de combate
+	# REEMPLAZA esta ruta por la ruta exacta de tu archivo Batalla2.tscn
+	get_tree().change_scene_to_file("res://Objetos/Mundo/batalla_2.tscn")
+
+func _al_terminar_animacion_batalla_2():
+	# Desconectamos la señal de la Batalla 2
+	var carteles_victoria = get_tree().get_nodes_in_group("mensaje_victoria")
+	if carteles_victoria.size() > 0 and carteles_victoria[0].animation_finished.is_connected(_al_terminar_animacion_batalla_2):
+		carteles_victoria[0].animation_finished.disconnect(_al_terminar_animacion_batalla_2)
+	
+	carteles_victoria[0].visible = false
+	
+	# Opcional: Si tienes música en el mapa 2, apágala igual que en la batalla 1
+	var nodo_musica = get_tree().current_scene.get_node_or_null("Witch-cat")
+	if nodo_musica and nodo_musica is AudioStreamPlayer:
+		nodo_musica.stop()
+	
+	# Ejemplo B: Si de momento quieres que vuelva directamente al Menú de Inicio:
+	get_tree().change_scene_to_file("res://Objetos/Menu/menu_principal.tscn") 
+	
+	# Recuerda resetear el contador si vuelves al menú de inicio por si vuelven a jugar
+	numero_batalla = 1
 
 
 func mostrar_selec_gato_enemigo():
