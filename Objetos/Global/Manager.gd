@@ -108,6 +108,8 @@ func iniciar_ataque():
 	elif tipo_accion == "grunido":
 		gato_equipo.usar_grunido(gato_objetivo)  
 
+	elif tipo_accion == "bufido":
+		gato_equipo.usar_bufido(gato_objetivo)
 
 func defender_gato():
 	gato_equipo.defenderse()

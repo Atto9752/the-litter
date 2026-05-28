@@ -23,6 +23,26 @@ region = Rect2(96, 0, 48, 48)
 atlas = ExtResource("1_rkxjr")
 region = Rect2(144, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lw6bq"]
+atlas = ExtResource("1_rkxjr")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6ogd"]
+atlas = ExtResource("1_rkxjr")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyvrm"]
+atlas = ExtResource("1_rkxjr")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca352"]
+atlas = ExtResource("1_rkxjr")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_em1bx"]
+atlas = ExtResource("1_rkxjr")
+region = Rect2(0, 0, 48, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_3og7k"]
 atlas = ExtResource("2_qpax4")
 region = Rect2(0, 0, 48, 48)
@@ -61,26 +81,6 @@ region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wpksu"]
 atlas = ExtResource("2_qpax4")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lw6bq"]
-atlas = ExtResource("1_rkxjr")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t6ogd"]
-atlas = ExtResource("1_rkxjr")
-region = Rect2(144, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iyvrm"]
-atlas = ExtResource("1_rkxjr")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ca352"]
-atlas = ExtResource("1_rkxjr")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_em1bx"]
-atlas = ExtResource("1_rkxjr")
 region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v87ed"]
@@ -148,6 +148,26 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lw6bq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6ogd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyvrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca352")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_em1bx")
+}],
+"loop": false,
+"name": &"bufido",
 "speed": 5.0
 }, {
 "frames": [{

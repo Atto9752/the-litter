@@ -6,6 +6,8 @@ class_name Gato extends CharacterBody2D
 @onready var efecto_estado = $EfectoEstado
 @onready var icono_debuff_izq = $IconoDebuffIzq
 @onready var icono_debuff_der = $IconoDebuffDer
+@onready var efecto_slow = $EfectoSlow
+@onready var icono_slow = $IconoSlow
 
 const VELOCIDAD = 400.0
 
@@ -23,6 +25,9 @@ var defendiendo : bool = false
 
 var turnos_grunido : int = 0
 var penalizacion_defensa : float = 0.0
+
+var turnos_bufido : int = 0
+var penalizacion_evasion : float = 0.0
 
 var retirandose : bool = false
 
@@ -178,6 +183,22 @@ func recibir_grunido():
 	if icono_debuff_actual:
 		icono_debuff_actual.visible = true
 
+func usar_bufido(target):
+	gato_objetivo = target
+	atacando = true 
+	animation.play("bufido") 
+
+func recibir_bufido():
+	print("¡Recibiendo bufido!")
+	turnos_bufido = 2
+	penalizacion_evasion = 0.15
+	
+	efecto_slow.visible = true
+	efecto_slow.play("anim_eva_down") 
+
+	if icono_slow:
+		icono_slow.visible = true
+
 func procesar_turnos_estado():
 	if turnos_grunido > 0:
 		turnos_grunido -= 1 
@@ -188,6 +209,13 @@ func procesar_turnos_estado():
 				icono_debuff_actual.visible = false
 			print("El efecto de gruñido desapareció. Defensa normalizada.")
 
+	if turnos_bufido > 0:
+		turnos_bufido -= 1
+		if turnos_bufido <= 0:
+			penalizacion_evasion = 0.0
+			if icono_slow:
+				icono_slow.visible = false
+			print("El efecto de bufido desapareció. Evasión normalizada.")
 
 ### FUNCIONES DEL MARCADOR ###
 func mostrar_enemigo_seleccionado():
@@ -225,6 +253,15 @@ func _on_animation_finished():
 		atacando = false
 		animation.play("idle")
 		Manager.cambiar_turno()	
+
+	elif animation.animation == "bufido":
+		if gato_objetivo:
+			gato_objetivo.recibir_bufido()
+			
+		gato_objetivo = null
+		atacando = false
+		animation.play("idle")
+		Manager.cambiar_turno()	
 		
 	elif animation.animation == "hurt" or animation.animation == "def_down":
 		animation.play("idle")
@@ -243,6 +280,15 @@ func _on_componente_salud_danio_recibido() -> void:
 func _on_componente_salud_salud_cero() -> void:
 	animation.play("dead")
 	$Salud.visible = false
+
+	if icono_debuff_actual:
+		icono_debuff_actual.visible = false
+
+	if icono_slow:
+		icono_slow.visible = false
+
+	efecto_estado.visible = false
+	efecto_slow.visible = false
 	
 	if data.jugador:
 		remove_from_group("Aliados")
@@ -255,8 +301,13 @@ func _on_componente_salud_salud_cero() -> void:
 func _on_efecto_estado_animation_finished() -> void:
 	efecto_estado.visible = false 
 
+func _on_efecto_slow_animation_finished() -> void:
+	if efecto_slow.animation == "anim_eva_down":
+		efecto_slow.visible = false
+
 func iniciar_retirada():
 	# Si no es jugador (es enemigo) y no tiene salud (está muerto)
 	if not data.jugador and componente_salud.sin_salud:
 		animation.play("get_up")
+
 
