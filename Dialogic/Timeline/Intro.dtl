@@ -26,5 +26,43 @@ Ollie: ¿Eh?
 leave Ollie
 join Pantera left
 Pantera: ¡Este es territorio de mi pandilla!
-Ollie: <Empty Text Event>
-Pantera: ¿Quién eres pequeño?
+leave Pantera
+join Ollie right
+Ollie: L-lo siento, solo estoy buscando algo para comer.
+leave Ollie
+join Pantera left
+Pantera: La comida de esta zona es para alimentar a mi grupo.
+leave Pantera
+join Ollie right
+Ollie: . . .
+leave Ollie
+join Pantera left
+Pantera: *suspira*
+Pantera: Eres muy pequeño para estar solo por aquí.
+Pantera: Dime ¿Cómo te llamas?
+leave Pantera
+join Ollie right
+Ollie: ¡M-mi nombre es Ollie!
+Ollie: ¡Un gusto conocerte!
+leave Ollie
+join Pantera left
+Pantera: Mi nombre es Pantera.
+Pantera: Se ve que eres nuevo por aquí.
+Pantera: Y todavía estás pequeño, tienes mucha energía, eso es bueno...
+leave Pantera
+join Ollie right
+Ollie: S-si, supongo...
+leave Ollie
+¡Este callejón es nuestro!
+join Pantera left
+Pantera: ! ! !
+audio "res://Assets/Sonidos/Sonidos free/Cat hiss.mp3"
+Pantera: ¡Caos!
+Pantera: ¡¿Qué haces en nuestro territorio?!
+leave Pantera
+join Caos right
+Caos: ¿No es obvio?
+leave Caos
+join Pantera left
+Pantera: Muchacho, preparate para pelear . . .
+leave Pantera

@@ -15,7 +15,7 @@
 &"display_name": "Caos",
 &"mirror": false,
 &"nicknames": [""],
-&"offset": Vector2(0, 0),
+&"offset": Vector2(175, 80),
 &"portraits": {
 "Default": {
 "export_overrides": {
@@ -27,5 +27,5 @@
 "scene": ""
 }
 },
-&"scale": 1.0
+&"scale": 0.85
 }
