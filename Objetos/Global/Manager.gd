@@ -3,6 +3,7 @@ signal seleccion_enemigo()
 signal seleccion_aliado()
 signal ataque_iniciado()
 signal ocultar_indicadores_aliados()
+signal retirada_enemigos()
 
 var turno_jugador : bool = true
 var puede_abrir_menu : bool = true
@@ -51,6 +52,12 @@ func obtener_personajes():
 
 # para ir cambiando entre el turno del jugador y la ia
 func cambiar_turno():
+	
+	#para no cambiar de turno si la batalla ya terminó 
+	if enemigos.size() == 0: 
+		emit_signal("retirada_enemigos")
+		return
+	
 	turno_jugador = !turno_jugador
 	
 	if turno_jugador:

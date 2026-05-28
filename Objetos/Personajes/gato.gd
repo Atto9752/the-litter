@@ -24,6 +24,8 @@ var defendiendo : bool = false
 var turnos_grunido : int = 0
 var penalizacion_defensa : float = 0.0
 
+var retirandose : bool = false
+
 # ACCIONES QUE SE ACTIVAN APENAS SE ABRE EL JUEGO
 func _ready():
 	
@@ -58,6 +60,8 @@ func _ready():
 		Manager.connect("ocultar_indicadores_aliados", ocultar_aliado_seleccionado)
 		icono_debuff_actual = icono_debuff_izq
 
+	Manager.connect("retirada_enemigos", iniciar_retirada)
+
 # PARA ABRIR PANEL DE MENU
 func _on_panel_gui_input(event: InputEvent):
 	if componente_salud.sin_salud or Manager.batalla_finalizada: return
@@ -74,8 +78,22 @@ func _on_panel_gui_input(event: InputEvent):
 
 # ANIMACION para que el gato se acerque a atacar al otro
 func _physics_process(delta):
-	if componente_salud.sin_salud or Manager.batalla_finalizada: return
 	
+	if retirandose:
+		velocity = Vector2(VELOCIDAD, 0) # Se mueve en el eje X hacia la derecha
+		move_and_slide()
+		
+		# Si cruza el límite derecho de la pantalla, borramos al gato
+		if global_position.x > get_viewport_rect().size.x + 200:
+			queue_free() 
+		return # Detiene el código aquí para que no lea lo de abajo
+
+	if componente_salud.sin_salud: return
+	
+	#para que si termino la batalla el ultimo gato regresa a su posicion inicial
+	if Manager.batalla_finalizada and not regresar_posicion:
+		return
+
 	# IR HACIA EL ENEMIGO
 	if gato_objetivo != null and not atacando and not regresar_posicion:
 		
@@ -211,7 +229,10 @@ func _on_animation_finished():
 	elif animation.animation == "hurt" or animation.animation == "def_down":
 		animation.play("idle")
 		
-
+	elif animation.animation == "get_up":
+		animation.flip_h = false #darlo guelta
+		animation.play("walk") #se va llendose
+		retirandose = true
 
 func _on_componente_salud_danio_recibido() -> void:
 	animation.play("hurt")
@@ -233,3 +254,9 @@ func _on_componente_salud_salud_cero() -> void:
 
 func _on_efecto_estado_animation_finished() -> void:
 	efecto_estado.visible = false 
+
+func iniciar_retirada():
+	# Si no es jugador (es enemigo) y no tiene salud (está muerto)
+	if not data.jugador and componente_salud.sin_salud:
+		animation.play("get_up")
+
