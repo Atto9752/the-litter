@@ -132,7 +132,6 @@ func _physics_process(delta):
 			velocity = Vector2.ZERO
 			regresar_posicion = false
 			animation.play("idle")
-			Manager.cambiar_turno()
 			
 			# RECORDAR QUITAR LUEGOOOOOOOOOOOOOOOOOOOO CTMMM
 			Manager.puede_abrir_menu = true
@@ -255,7 +254,6 @@ func _on_animation_finished():
 		gato_objetivo = null
 		atacando = false
 		animation.play("idle")
-		Manager.cambiar_turno()
 		
 	elif animation.animation == "bufido":
 		if gato_objetivo:
@@ -264,7 +262,6 @@ func _on_animation_finished():
 		gato_objetivo = null
 		atacando = false
 		animation.play("idle")
-		Manager.cambiar_turno()
 		
 	elif animation.animation == "hurt" or animation.animation == "def_down":
 		animation.play("idle")

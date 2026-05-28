@@ -6,17 +6,19 @@ signal ocultar_indicadores_aliados()
 
 var turno_jugador : bool = true
 var puede_abrir_menu : bool = true
-
 var gato_equipo
 var gato_objetivo
-
 var enemigos = []
 var aliados = []
 var turno_enemigo : int = 0
-
 var batalla_finalizada : bool = false
-
 var tipo_accion : String = ""
+
+# nuevas variables para turnos tipo rpg x turnos clasico
+var acciones_planificadas : Array = [] # guarda diccionarios con {gato_origen, tipo_accion, gato_objetivo} etc
+var aliados_que_ya_eligieron : Array = []
+var ejecutando_acciones_en_cadena : bool = false
+
 
 func registrar_gato(gato):
 	if gato.data.jugador:
@@ -82,6 +84,7 @@ func mostrar_selec_gato_equipo():
 	emit_signal("seleccion_aliado")
 
 func seleccion_gato_equipo(gato):
+	if ejecutando_acciones_en_cadena: return
 	emit_signal("ocultar_indicadores_aliados")
 	gato_equipo = gato
 	gato.mostrar_aliado_seleccionado()
@@ -93,17 +96,67 @@ func seleccion_gato_enemigo(gato):
 func iniciar_ataque():
 	emit_signal("ataque_iniciado")
 	emit_signal("ocultar_indicadores_aliados")
-	puede_abrir_menu = false
-	gato_equipo.atacar_enemigo(gato_objetivo)
 	
-	if tipo_accion == "attack":
-		gato_equipo.atacar_enemigo(gato_objetivo)
+	# guardamos los datos de la accion del aliado actual
+	var nueva_accion = {
+		"origen": gato_equipo,
+		"tipo": tipo_accion,
+		"objetivo": gato_objetivo
+	}
+	
+	acciones_planificadas.append(nueva_accion)
+	aliados_que_ya_eligieron.append(gato_equipo)
+	
+	evaluar_siguiente_paso_jugador()
+
+
+# ejecuta de forma asincrona una accion tras otra
+func ejecutar_acciones_acumuladas():
+	ejecutando_acciones_en_cadena = true
+	puede_abrir_menu = false
+	
+	for accion in acciones_planificadas:
+		var gato = accion["origen"]
+		if gato.componente_salud.sin_salud: continue # si murio antes de su turno, saltar
 		
-	elif tipo_accion == "grunido":
-		gato_equipo.usar_grunido(gato_objetivo)
-		
-	elif tipo_accion == "bufido":
-		gato_equipo.usar_bufido(gato_objetivo)
+		if accion["tipo"] == "attack":
+			gato.atacar_enemigo(accion["objetivo"])
+		elif accion["tipo"] == "grunido":
+			gato.usar_grunido(accion["objetivo"])
+		elif accion["tipo"] == "bufido":
+			gato.usar_bufido(accion["objetivo"])
+		elif accion["tipo"] == "defender":
+			gato.defenderse()
+			
+		# para esperar hasta que el gato actual termine su animacion y regrese a su sitio
+		await get_tree().create_timer(1.8).timeout 
+	
+	# limpiar datos del turno actual del jugador
+	acciones_planificadas.clear()
+	aliados_que_ya_eligieron.clear()
+	ejecutando_acciones_en_cadena = false
+	
+	# pasamos al turno de la ia
+	turno_jugador = false
+	iniciar_turno_enemigo()
+
+
+# verifica si faltan aliados por elegir comando o si se ejecutan todos
+func evaluar_siguiente_paso_jugador():
+	# filtrar aliados vivos x si alguno muirio
+	var aliados_vivos = aliados.filter(func(g): return !g.componente_salud.sin_salud)
+	
+	if aliados_que_ya_eligieron.size() >= aliados_vivos.size():
+		# todos los gatos del jugador eligieron, se inicia la cadena de acciones
+		ejecutar_acciones_acumuladas()
+	else:
+		# para dejar q el jugador seleccione a otro gato que no haya elegido aun
+		puede_abrir_menu = true
+		for aliado in aliados_vivos:
+			if not aliado in aliados_que_ya_eligieron:
+				aliado.get_node("Panel").grab_focus()
+				break
+
 
 
 func defender_gato():
