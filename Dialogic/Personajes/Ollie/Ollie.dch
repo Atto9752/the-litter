@@ -15,11 +15,11 @@
 &"display_name": "Ollie",
 &"mirror": false,
 &"nicknames": [""],
-&"offset": Vector2(175, 80),
+&"offset": Vector2(175, 75),
 &"portraits": {
 "Default": {
 "export_overrides": {
-"image": "\"res://Dialogic/Personajes/Ollie/Cuerpo Completo.png\""
+"image": "\"res://Dialogic/Personajes/Retratos/Ollie/Ollie.png\""
 },
 "mirror": false,
 "offset": Vector2(0, 0),
@@ -27,5 +27,5 @@
 "scene": ""
 }
 },
-&"scale": 0.9
+&"scale": 0.75
 }

@@ -1,0 +1,68 @@
+[background arg="#000000ff" fade="0.0"]
+[wait_input]
+audio "res://Assets/Música/What cat (Incompleto).mp3"
+. . .
+Qué sensación tan agradable.
+. . .
+Está cálido, y huele a leche.
+Se siente como...
+. . .
+un hogar...
+[background arg="res://Assets/Fondos/Fondos originales/The litter- Callejón V1.0.png" fade="0.0"]
+join Ollie right
+Ollie: Qué sueño tan extraño.
+Ollie: Me recuerda a unas semanas atrás.
+Ollie: Poco antes de que mis humanos me trajeran de paseo.
+Ollie: Me pregunto cuándo me encontrarán.
+Ollie: Deben estar preocupados.
+Ollie: Mi madre y mis hermanos también.
+audio "res://Assets/Sonidos/Stomach growling.mp3"
+Ollie: . . .
+Ollie: Bueno, supongo que por el momento solo puedo seguir buscando comida.
+Ollie: Veré si encuentro algo más por aquí.
+Ollie: Hay muchos basureros cerca.
+¡Hey, tú!
+Ollie: ¿Eh?
+leave Ollie
+join Pantera left
+Pantera: ¡Este es territorio de mi pandilla!
+leave Pantera
+join Ollie right
+Ollie: L-lo siento, solo estoy buscando algo para comer.
+leave Ollie
+join Pantera left
+Pantera: La comida de esta zona es para alimentar a mi grupo.
+leave Pantera
+join Ollie right
+Ollie: . . .
+leave Ollie
+join Pantera left
+Pantera: *suspira*
+Pantera: Eres muy pequeño para estar solo por aquí.
+Pantera: Dime ¿Cómo te llamas?
+leave Pantera
+join Ollie right
+Ollie: ¡M-mi nombre es Ollie!
+Ollie: ¡Un gusto conocerte!
+leave Ollie
+join Pantera left
+Pantera: Mi nombre es Pantera.
+Pantera: Se ve que eres nuevo por aquí.
+Pantera: Y todavía estás pequeño, tienes mucha energía, eso es bueno...
+leave Pantera
+join Ollie right
+Ollie: S-si, supongo...
+leave Ollie
+¡Este callejón es nuestro!
+join Pantera left
+Pantera: ! ! !
+audio "res://Assets/Sonidos/Sonidos free/Cat hiss.mp3"
+Pantera: ¡Caos!
+Pantera: ¡¿Qué haces en nuestro territorio?!
+leave Pantera
+join Caos right
+Caos: ¿No es obvio?
+leave Caos
+join Pantera left
+Pantera: Muchacho, preparate para pelear . . .
+leave Pantera
