@@ -8,7 +8,6 @@
 [ext_resource type="Resource" uid="uid://dcq0emnm8xy0a" path="res://Data/Enemigos/GatoEnemigo.tres" id="5_58pn8"]
 [ext_resource type="Resource" uid="uid://b5u5gyqxqv1ww" path="res://Data/Equipo/Pantera.tres" id="5_jgt66"]
 [ext_resource type="Resource" uid="uid://biwpfjk2sqmt7" path="res://Data/Enemigos/Caos.tres" id="7_puggj"]
-[ext_resource type="AudioStream" uid="uid://qvkpxlsh4lp5" path="res://Assets/Música/battle against your inner soul.mp3" id="9_puggj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b5rl0"]
 atlas = ExtResource("2_b5rl0")
@@ -391,25 +390,19 @@ animation = &"aparecer_derrota"
 [node name="Node2D" type="Node2D" parent="." unique_id=1558050029]
 
 [node name="GatoPantera" parent="Node2D" unique_id=473086210 instance=ExtResource("2_016k1")]
-position = Vector2(247, 323)
+position = Vector2(224, 347)
 collision_mask = 2
 data = ExtResource("5_jgt66")
 
 [node name="GatoOllie" parent="Node2D" unique_id=1360874794 instance=ExtResource("2_016k1")]
-position = Vector2(139, 428)
+position = Vector2(131, 447)
 collision_mask = 2
 data = ExtResource("4_ms2jd")
 
 [node name="GatoCaos" parent="Node2D" unique_id=1809660034 instance=ExtResource("2_016k1")]
-position = Vector2(717, 331)
+position = Vector2(697, 404)
 data = ExtResource("7_puggj")
 
 [node name="GatoEnemigo" parent="Node2D" unique_id=1873736662 instance=ExtResource("2_016k1")]
-position = Vector2(819, 430)
+position = Vector2(809, 451)
 data = ExtResource("5_58pn8")
-
-[node name="MusicaBatallaTutorial" type="AudioStreamPlayer" parent="." unique_id=823719644]
-stream = ExtResource("9_puggj")
-volume_db = -15.035
-autoplay = true
-parameters/looping = false

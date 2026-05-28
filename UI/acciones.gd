@@ -33,8 +33,6 @@ func _on_boton_grunido_button_down() -> void:
 
 func _on_boton_bufido_button_down() -> void:
 	cerrar_menu()
-	Manager.tipo_accion = "bufido"
-	Manager.mostrar_selec_gato_enemigo()
 	print("BUFIDO")
 
 func _on_boton_cerrar_button_down() -> void:

@@ -7,48 +7,34 @@ class_name Gato extends CharacterBody2D
 @onready var icono_debuff_izq = $IconoDebuffIzq
 @onready var icono_debuff_der = $IconoDebuffDer
 
-signal accion_terminada
-
 const VELOCIDAD = 400.0
 
-# variables animacion
+#variables animacion
 var atacando : bool = false
 var posicion_inicial : Vector2
 var regresar_posicion : bool = false
 
-# icono correcto que usara cada gato en particular
+# Esta variable guardará el ícono correcto que usará este gato en particular
 var icono_debuff_actual : Sprite2D 
 
-# variables personaje
+#variables personaje
 var gato_objetivo
 var defendiendo : bool = false
 
-# variables grunido
 var turnos_grunido : int = 0
 var penalizacion_defensa : float = 0.0
 
-# variables bufido
-var turnos_bufido : int = 0
-var penalizacion_evasion : float = 0.0
-var evasion_actual : float = 0.2
+var retirandose : bool = false
 
-
-
-# ------------------------------------------------------------------------------------------ #
 # ACCIONES QUE SE ACTIVAN APENAS SE ABRE EL JUEGO
-# ------------------------------------------------------------------------------------------ #
-
 func _ready():
-	
-	# valores iniciales
-	evasion_actual = data.evasion
 	
 	# Asignar animaciones personalizadas desde el Resource antes de reproducir
 	if data and data.animaciones_gato:
 		animation.sprite_frames = data.animaciones_gato
-	
+		
 	animation.animation_finished.connect(_on_animation_finished)
-	animation.play("idle")
+	animation.play("idle") # reproducir el idle del gato correspondiente
 	posicion_inicial = global_position
 	
 	componente_salud.salud_maxima = data.salud_maxima
@@ -67,32 +53,47 @@ func _ready():
 		animation.flip_h = true
 		Manager.connect("seleccion_enemigo", mostrar_enemigo_seleccionado)
 		icono_debuff_actual = icono_debuff_der
+
 	else:
 		# para q los aliados escuchen la indicacion de apagar su indicador verde
 		add_to_group("Aliados")
 		Manager.connect("ocultar_indicadores_aliados", ocultar_aliado_seleccionado)
 		icono_debuff_actual = icono_debuff_izq
 
+	Manager.connect("retirada_enemigos", iniciar_retirada)
 
 # PARA ABRIR PANEL DE MENU
 func _on_panel_gui_input(event: InputEvent):
 	if componente_salud.sin_salud or Manager.batalla_finalizada: return
 	
 	if data.jugador:
-		if (Input.is_action_just_pressed("click_izquierdo") or event.is_action_pressed("ui_accept")) and Manager.puede_abrir_menu and Manager.turno_jugador:
-			if not Manager.aliados_que_ya_eligieron.has(self):
-				$Acciones.abrir_menu()
-				Manager.seleccion_gato_equipo(self)
+		if Input.is_action_just_pressed("click_izquierdo") or event.is_action_pressed("ui_accept")and Manager.puede_abrir_menu and Manager.turno_jugador:
+			$Acciones.abrir_menu()
+			Manager.seleccion_gato_equipo(self)
 	else:
-		if (Input.is_action_just_pressed("click_izquierdo") or event.is_action_pressed("ui_accept")) and $Seleccion_enemigo.visible and Manager.seleccionando_objetivo:
+		if Input.is_action_just_pressed("click_izquierdo") or event.is_action_pressed("ui_accept") and $Seleccion_enemigo.visible:
 			Manager.seleccion_gato_enemigo(self)
 			Manager.iniciar_ataque()
 
 
 # ANIMACION para que el gato se acerque a atacar al otro
 func _physics_process(delta):
-	if componente_salud.sin_salud or Manager.batalla_finalizada: return
 	
+	if retirandose:
+		velocity = Vector2(VELOCIDAD, 0) # Se mueve en el eje X hacia la derecha
+		move_and_slide()
+		
+		# Si cruza el límite derecho de la pantalla, borramos al gato
+		if global_position.x > get_viewport_rect().size.x + 200:
+			queue_free() 
+		return # Detiene el código aquí para que no lea lo de abajo
+
+	if componente_salud.sin_salud: return
+	
+	#para que si termino la batalla el ultimo gato regresa a su posicion inicial
+	if Manager.batalla_finalizada and not regresar_posicion:
+		return
+
 	# IR HACIA EL ENEMIGO
 	if gato_objetivo != null and not atacando and not regresar_posicion:
 		
@@ -134,16 +135,14 @@ func _physics_process(delta):
 			global_position = posicion_inicial
 			velocity = Vector2.ZERO
 			regresar_posicion = false
-			gato_objetivo = null
 			animation.play("idle")
-			accion_terminada.emit()
+			Manager.cambiar_turno()
+			
+			# RECORDAR QUITAR LUEGOOOOOOOOOOOOOOOOOOOO CTMMM
 			Manager.puede_abrir_menu = true
 
 
-
-# ------------------------------------------------------------------------------------------ #
 ### FUNCIONES GENERALES ###
-# ------------------------------------------------------------------------------------------ #
 
 func atacar_enemigo(target):
 	gato_objetivo = target
@@ -151,8 +150,11 @@ func atacar_enemigo(target):
 func defenderse():
 	componente_salud.defensa = (data.defensa + penalizacion_defensa)/2 
 	defendiendo = true
+	Manager.cambiar_turno()
+	Manager.puede_abrir_menu = true
 
-func actualizar_defensa_actual():
+
+func quitar_defensa():
 	componente_salud.defensa = data.defensa + penalizacion_defensa 
 
 func usar_grunido(target):
@@ -163,61 +165,31 @@ func usar_grunido(target):
 func recibir_grunido():
 	turnos_grunido = 2
 	penalizacion_defensa = 0.4
-	actualizar_defensa_actual()
-	
+	quitar_defensa() 
 	print("¡Defensa vulnerada por 2 turnos!")
 	animation.play("def_down") 
+
 	efecto_estado.visible = true 
-	
 	if data.jugador:
 		efecto_estado.play("anim_def_down")
 	else:
 		efecto_estado.play("anim_def_down_enemy")
-	
+
 	if icono_debuff_actual:
 		icono_debuff_actual.visible = true
 
-func usar_bufido(target):
-	gato_objetivo = target
-	atacando = true
-	animation.play("bufido")
-
-func recibir_bufido():
-	turnos_bufido = 2
-	penalizacion_evasion = 0.15
-	evasion_actual = clamp(data.evasion - penalizacion_evasion, 0.0, 1.0)
-	print("¡Evasión reducida por 2 turnos!")
-	# ANIMACIONES DE PARTICULAS O ICONOS DEBUFF PARA CUANDO TENGAMOS
-
 func procesar_turnos_estado():
-	
-	# para gruñido
 	if turnos_grunido > 0:
 		turnos_grunido -= 1 
 		if turnos_grunido <= 0:
 			penalizacion_defensa = 0.0
-			actualizar_defensa_actual()
-			if icono_debuff_actual: icono_debuff_actual.visible = false
+			quitar_defensa() 
+			if icono_debuff_actual:
+				icono_debuff_actual.visible = false
 			print("El efecto de gruñido desapareció. Defensa normalizada.")
-	
-	#para bufido
-	if turnos_bufido > 0:
-		turnos_bufido -= 1
-		if turnos_bufido <= 0:
-			penalizacion_evasion = 0.0
-			evasion_actual = data.evasion
-			print("El efecto de bufido desapareció. Evasión normalizada.")
 
 
-
-
-
-
-
-# ------------------------------------------------------------------------------------------ #
 ### FUNCIONES DEL MARCADOR ###
-# ------------------------------------------------------------------------------------------ #
-
 func mostrar_enemigo_seleccionado():
 	$Seleccion_enemigo.visible = true
 
@@ -232,26 +204,19 @@ func ocultar_aliado_seleccionado():
 
 
 
-
-# ------------------------------------------------------------------------------------------ #
 # FUNCIONES VISUALES
-# ------------------------------------------------------------------------------------------ #
 
 func _on_animation_finished():
 	if animation.animation == "attack":
 		if gato_objetivo and gato_objetivo.has_node("ComponenteSalud"):
-			gato_objetivo.componente_salud.recibir_danio(
-				data.danio, 
-				data.prob_critico, 
-				data.multip_danio, 
-				gato_objetivo.evasion_actual
-			)
+			gato_objetivo.componente_salud.recibir_danio(data.danio, data.prob_critico, data.multip_danio)
 			print("Hacer daño al personaje")
 		
+		gato_objetivo = null
 		atacando = false
 		regresar_posicion = true
 		Manager.puede_abrir_menu = true
-		
+
 	elif animation.animation == "grunido":
 		if gato_objetivo:
 			gato_objetivo.recibir_grunido() 
@@ -259,26 +224,20 @@ func _on_animation_finished():
 		gato_objetivo = null
 		atacando = false
 		animation.play("idle")
-		accion_terminada.emit()
-		
-	elif animation.animation == "bufido":
-		if gato_objetivo:
-			gato_objetivo.recibir_bufido()
-		
-		gato_objetivo = null
-		atacando = false
-		animation.play("idle")
-		accion_terminada.emit()
+		Manager.cambiar_turno()	
 		
 	elif animation.animation == "hurt" or animation.animation == "def_down":
 		animation.play("idle")
-
-
+		
+	elif animation.animation == "get_up":
+		animation.flip_h = false #darlo guelta
+		animation.play("walk") #se va llendose
+		retirandose = true
 
 func _on_componente_salud_danio_recibido() -> void:
 	animation.play("hurt")
 	defendiendo = false
-	actualizar_defensa_actual()
+	quitar_defensa()
 
 
 func _on_componente_salud_salud_cero() -> void:
@@ -295,3 +254,9 @@ func _on_componente_salud_salud_cero() -> void:
 
 func _on_efecto_estado_animation_finished() -> void:
 	efecto_estado.visible = false 
+
+func iniciar_retirada():
+	# Si no es jugador (es enemigo) y no tiene salud (está muerto)
+	if not data.jugador and componente_salud.sin_salud:
+		animation.play("get_up")
+
