@@ -35,22 +35,40 @@ func obtener_personajes():
 	if enemigos.size() == 0:
 		print("¡Has ganado!")
 		batalla_finalizada = true
-
+		
 		var carteles_victoria = get_tree().get_nodes_in_group("mensaje_victoria")
+		
 		if carteles_victoria.size() > 0:
 			var cartel_animado = carteles_victoria[0]
 			cartel_animado.visible = true
 			cartel_animado.play("aparecer_victoria") 
-
+		
 	elif aliados.size() == 0:
 		print("Has perdido")
 		batalla_finalizada = true
-
 		var carteles_derrota = get_tree().get_nodes_in_group("mensaje_derrota")
+		
 		if carteles_derrota.size() > 0:
 			var cartel_animado = carteles_derrota[0]
 			cartel_animado.visible = true
 			cartel_animado.play("aparecer_derrota") 
+	
+	# --- CONFIGURACIÓN DINÁMICA DE VECINOS PARA EL MANDO ---
+	# Si hay al menos dos enemigos vivos en la arena, los enlazamos para la cruceta
+	if enemigos.size() >= 2:
+		for i in range(enemigos.size()):
+			var panel_actual = enemigos[i].get_node("Panel")
+			
+			# Calculamos quién está a la izquierda y derecha de forma circular
+			var indice_izq = (i - 1 + enemigos.size()) % enemigos.size()
+			var indice_der = (i + 1) % enemigos.size()
+			
+			var panel_izq = enemigos[indice_izq].get_node("Panel")
+			var panel_der = enemigos[indice_der].get_node("Panel")
+			
+			# Le asignamos los vecinos del foco explícitamente para el mando
+			panel_actual.focus_neighbor_left = panel_izq.get_path()
+			panel_actual.focus_neighbor_right = panel_der.get_path()
 
 
 func mostrar_selec_gato_enemigo():

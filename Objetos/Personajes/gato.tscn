@@ -578,6 +578,7 @@ position = Vector2(71, -43)
 scale = Vector2(3.031, 3.736)
 texture = ExtResource("13_m5yrt")
 
+[connection signal="focus_entered" from="Panel" to="." method="_on_panel_focus_entered"]
 [connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
 [connection signal="danio_recibido" from="ComponenteSalud" to="." method="_on_componente_salud_danio_recibido"]
 [connection signal="salud_cero" from="ComponenteSalud" to="." method="_on_componente_salud_salud_cero"]

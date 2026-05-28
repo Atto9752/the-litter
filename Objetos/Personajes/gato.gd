@@ -295,3 +295,12 @@ func _on_componente_salud_salud_cero() -> void:
 
 func _on_efecto_estado_animation_finished() -> void:
 	efecto_estado.visible = false 
+
+
+func _on_panel_focus_entered() -> void:
+	# Si es el turno del jugador y este gato no ha planeado su acción todavía
+	if data.jugador and Manager.puede_abrir_menu and Manager.turno_jugador:
+		if not Manager.aliados_que_ya_eligieron.has(self):
+			# Abrimos la interfaz de ataques y le asignamos la selección global
+			$Acciones.abrir_menu()
+			Manager.seleccion_gato_equipo(self)
