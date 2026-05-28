@@ -156,6 +156,8 @@ func evaluar_siguiente_paso_jugador():
 				break
 
 
+	elif tipo_accion == "bufido":
+		gato_equipo.usar_bufido(gato_objetivo)
 
 func defender_gato():
 	gato_equipo.defenderse()
