@@ -177,7 +177,7 @@ func iniciar_turno_enemigo():
 	if batalla_finalizada: return
 	puede_abrir_menu = false
 	
-	# Filtramos los enemigos vivos
+	# filtramos los enemigos vivos
 	var enemigos_vivos = enemigos.filter(func(e): return !e.componente_salud.sin_salud)
 	var aliados_vivos = aliados.filter(func(a): return !a.componente_salud.sin_salud)
 	
@@ -185,7 +185,7 @@ func iniciar_turno_enemigo():
 		obtener_personajes()
 		return
 
-	# La IA procesará a TODOS sus gatos vivos uno por uno, esperando su animación
+	# la ia procesa todos sus gatos vivos uno por uno, esperando su animacion
 	for enemigo_actual in enemigos_vivos:
 		if batalla_finalizada or enemigo_actual.componente_salud.sin_salud: continue
 		
@@ -195,7 +195,7 @@ func iniciar_turno_enemigo():
 		var objetivo = aliados_vivos.pick_random()
 		var dado = randf_range(0, 100)
 		
-		# Configuramos las variables globales momentáneas para este ataque de la IA
+		# variables globales momentaneas para este ataque de la ia
 		gato_equipo = enemigo_actual
 		gato_objetivo = objetivo
 		
@@ -203,7 +203,7 @@ func iniciar_turno_enemigo():
 			# 65% ATACAR
 			tipo_accion = "attack"
 			enemigo_actual.atacar_enemigo(objetivo)
-			await enemigo_actual.accion_terminada # Esperamos que el enemigo vaya y vuelva
+			await enemigo_actual.accion_terminada # espera q el enemigo vaya y vuelva
 		elif dado < 80:
 			# 15% DEFENDER
 			enemigo_actual.defenderse()
