@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bvfg33e38cy6y" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Death.png" id="2_n2gpd"]
 [ext_resource type="Texture2D" uid="uid://bp4qa3g8xwho0" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Hurt.png" id="3_hut2t"]
 [ext_resource type="Texture2D" uid="uid://dghil1iyt2efa" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Idle.png" id="4_fhbjo"]
+[ext_resource type="Texture2D" uid="uid://cyy0waj52a7mw" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Def_down.png" id="4_n2gpd"]
 [ext_resource type="Texture2D" uid="uid://de4sxysb2o0pd" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Walk.png" id="5_n1xxl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hdroc"]
@@ -37,6 +38,14 @@ region = Rect2(96, 0, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ehd40"]
 atlas = ExtResource("2_n2gpd")
 region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hut2t"]
+atlas = ExtResource("3_hut2t")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhbjo"]
+atlas = ExtResource("4_n2gpd")
+region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_84t80"]
 atlas = ExtResource("3_hut2t")
@@ -120,6 +129,17 @@ animations = [{
 }],
 "loop": false,
 "name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hut2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhbjo")
+}],
+"loop": false,
+"name": &"def_down",
 "speed": 5.0
 }, {
 "frames": [],

@@ -390,19 +390,19 @@ animation = &"aparecer_derrota"
 [node name="Node2D" type="Node2D" parent="." unique_id=1558050029]
 
 [node name="GatoPantera" parent="Node2D" unique_id=473086210 instance=ExtResource("2_016k1")]
-position = Vector2(224, 347)
+position = Vector2(247, 323)
 collision_mask = 2
 data = ExtResource("5_jgt66")
 
 [node name="GatoOllie" parent="Node2D" unique_id=1360874794 instance=ExtResource("2_016k1")]
-position = Vector2(131, 447)
+position = Vector2(139, 428)
 collision_mask = 2
 data = ExtResource("4_ms2jd")
 
 [node name="GatoCaos" parent="Node2D" unique_id=1809660034 instance=ExtResource("2_016k1")]
-position = Vector2(697, 404)
+position = Vector2(717, 331)
 data = ExtResource("7_puggj")
 
 [node name="GatoEnemigo" parent="Node2D" unique_id=1873736662 instance=ExtResource("2_016k1")]
-position = Vector2(809, 451)
+position = Vector2(804, 429)
 data = ExtResource("5_58pn8")

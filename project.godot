@@ -24,17 +24,14 @@ CursorGlobal="*uid://d3qlcet2omwj2"
 [dialogic]
 
 directories/dch_directory={
-"Caos": "res://Dialogic/Personajes/Ollie/Caos.dch",
-"Ollie": "res://Personajes Dialogic/Ollie.dch",
-"Ollie/Ollie": "res://Dialogic/Personajes/Ollie/Ollie.dch",
-"Pantera": "res://Dialogic/Personajes/Pantera/Pantera.dch",
-"Personajes Dialogic/Pantera": "res://Personajes Dialogic/Pantera.dch"
+"Caos": "res://Dialogic/Personajes/Caos.dch",
+"Ollie": "res://Dialogic/Personajes/Ollie.dch",
+"Pantera": "res://Dialogic/Personajes/Pantera.dch"
 }
 directories/dtl_directory={
-"Intro_v_1": "res://Dialogic/Timeline/Intro_v_1.dtl",
-"decision trailer": "res://Dialogic/Timeline/decision trailer.dtl",
-"intro_v1": "res://Timelines/intro_v1.dtl",
-"novela visual trailer": "res://Dialogic/Timeline/novela visual trailer.dtl"
+"Guarida": "res://Dialogic/Timeline/Guarida.dtl",
+"Intro": "res://Dialogic/Timeline/Intro.dtl",
+"Tutorial": "res://Dialogic/Timeline/Tutorial.dtl"
 }
 layout/style_directory={}
 glossary/default_case_sensitive=true

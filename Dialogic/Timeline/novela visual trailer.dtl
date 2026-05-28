@@ -1,8 +1,0 @@
-[background arg="res://Assets/Fondos/craftpix-street-2d-backgrounds/PNG/City4/Bright/City4.png" fade="0.0"]
-[wait_input]
-join Caos left
-Caos: Abandona tu pandilla y únete a nosotros.
-Caos: Tienes el alma de un guerrero, como nosotros.
-[wait time="1.0"]
-- Me uniré a ustedes
-- No pienso traicionar a mi pandilla
