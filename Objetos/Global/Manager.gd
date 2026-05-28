@@ -219,6 +219,13 @@ func ejecutar_acciones_acumuladas():
 		if not is_instance_valid(gato) or gato.componente_salud.sin_salud: 
 			continue # Si el gato murio antes de su turno en la cola, saltar
 		
+		# --- NUEVA VALIDACIÓN DE OBJETIVO VIVO ---
+		# Si la acción requiere un objetivo y ese objetivo ya está muerto/knockout, nos saltamos la acción
+		var objetivo = accion["objetivo"]
+		if objetivo != null and (not is_instance_valid(objetivo) or objetivo.componente_salud.sin_salud):
+			print("El objetivo ya fue derrotado. ¡Acción cancelada para " + gato.name + "!")
+			continue # Se salta este ataque y el bucle pasa al siguiente de inmediato
+		
 		if accion["tipo"] == "attack":
 			gato.atacar_enemigo(accion["objetivo"])
 			await gato.accion_terminada # espera q el atacante vaya y vuelva
@@ -238,6 +245,8 @@ func ejecutar_acciones_acumuladas():
 	acciones_planificadas.clear()
 	aliados_que_ya_eligieron.clear()
 	ejecutando_acciones_en_cadena = false
+	
+	if batalla_finalizada: return
 	
 	# pasamos al turno de la ia
 	turno_jugador = false
