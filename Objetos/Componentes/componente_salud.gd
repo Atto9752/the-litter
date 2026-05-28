@@ -12,8 +12,15 @@ var sin_salud : bool = false
 var defensa : float
 
 
-func recibir_danio(cantidad: float, prob: float, aumento: float):
+func recibir_danio(cantidad: float, prob: float, aumento: float, evasion_gato: float = 0.0):
 	if sin_salud: return
+	
+	# dado de probabilidad para la evasion antes de procesar daño
+	if randf_range(0.0, 1.0) <= evasion_gato:
+		print("¡El ataque ha sido EVADIDO!")
+		# AÑADIR A FUTURO: aqui se podria disparar una señal para mostrar un texto flotante de "Miss" o "Evadido"
+		return
+	
 	
 	salud_actual -= calcular_danio(cantidad, prob, aumento)
 	salud_actual = clamp(salud_actual, 0 , salud_maxima) # para evitar salud negativa

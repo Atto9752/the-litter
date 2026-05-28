@@ -56,28 +56,17 @@ region = Rect2(0, 0, 48, 48)
 atlas = ExtResource("4_p6y80")
 region = Rect2(48, 0, 48, 48)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m5yrt"]
-load_path = "res://.godot/imported/gruñido.png-967a3ece457ff2dc749426c7f32089cf.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_oq6l4"]
-atlas = SubResource("CompressedTexture2D_m5yrt")
+atlas = ExtResource("1_uxfe0")
 region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmub6"]
-atlas = SubResource("CompressedTexture2D_m5yrt")
+atlas = ExtResource("1_uxfe0")
 region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l5xlt"]
-atlas = SubResource("CompressedTexture2D_m5yrt")
+atlas = ExtResource("1_uxfe0")
 region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_me143"]
-atlas = SubResource("CompressedTexture2D_m5yrt")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lo2eo"]
-atlas = SubResource("CompressedTexture2D_m5yrt")
-region = Rect2(192, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ajf2t"]
 atlas = ExtResource("3_iragc")
@@ -183,12 +172,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l5xlt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_me143")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lo2eo")
 }],
 "loop": false,
 "name": &"grunido",
@@ -529,7 +512,7 @@ shape = SubResource("RectangleShape2D_fc74l")
 [node name="Animation" type="AnimatedSprite2D" parent="." unique_id=155168672]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_oq6l4")
-animation = &"def_down"
+animation = &"grunido"
 
 [node name="Acciones" parent="." unique_id=1496839050 instance=ExtResource("7_iragc")]
 z_index = 10

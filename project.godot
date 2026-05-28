@@ -13,13 +13,11 @@ config_version=5
 config/name="The Litter"
 run/main_scene="uid://qav7qubkfbdt"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
 Dialogic="*uid://ds2q0uclmolvu"
 Manager="*uid://p4y8ve28yem0"
-CursorGlobal="*uid://d3qlcet2omwj2"
 
 [dialogic]
 

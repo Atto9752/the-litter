@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://gh48yf0eqcx" path="res://Assets/Personajes/Gatitos/Sprites originales/Caos/Caos idle.png" id="1_vsu0a"]
 [ext_resource type="Texture2D" uid="uid://cbabb7okonqri" path="res://Assets/Personajes/Gatitos/Sprites originales/Caos/Caos hurt.png" id="2_fq623"]
+[ext_resource type="Texture2D" uid="uid://cqk8eg8lijswu" path="res://Assets/Personajes/craftpix-street-animal/3 Cat/Death.png" id="3_fq623"]
 [ext_resource type="Texture2D" uid="uid://cyy0waj52a7mw" path="res://Assets/Personajes/craftpix-street-animal/4 Cat 2/Def_down.png" id="4_n2gpd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cg5j6"]
@@ -36,9 +37,17 @@ region = Rect2(0, 0, 48, 48)
 atlas = ExtResource("2_fq623")
 region = Rect2(48, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w6jp0"]
-atlas = ExtResource("1_vsu0a")
+[sub_resource type="AtlasTexture" id="AtlasTexture_7d128"]
+atlas = ExtResource("3_fq623")
 region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5c0wg"]
+atlas = ExtResource("3_fq623")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tn25n"]
+atlas = ExtResource("3_fq623")
+region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b61ug"]
 atlas = ExtResource("2_fq623")
@@ -126,7 +135,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_hc3nn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w6jp0")
+"texture": SubResource("AtlasTexture_7d128")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5c0wg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tn25n")
 }],
 "loop": false,
 "name": &"dead",
