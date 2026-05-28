@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cqcxqyuf1a6be" path="res://Assets/Fondos/craftpix-city-backgrounds/city 7/5.png" id="6_elord"]
 [ext_resource type="Texture2D" uid="uid://5jmfmymfdedl" path="res://Assets/UI/CatUIPaid/9c6c009f99bd4d9eb5c2ba5de18971e6.png" id="8_cw72v"]
 [ext_resource type="Texture2D" uid="uid://moospk2sqbqg" path="res://Assets/UI/CatUIPaid/2b66a1fa7c7bbd4dc92e67ce5663d928.png" id="9_ld64u"]
+[ext_resource type="AudioStream" uid="uid://dxfwu5fdgfmyl" path="res://Assets/Música/Erick-propuesta-litter.mp3" id="10_mqotg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_do4p2"]
 atlas = ExtResource("2_k4nb7")
@@ -144,6 +145,12 @@ texture = ExtResource("8_cw72v")
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer" unique_id=2079295249]
 layout_mode = 2
 texture = ExtResource("9_ld64u")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1523187143]
+stream = ExtResource("10_mqotg")
+volume_db = -15.0
+autoplay = true
+parameters/looping = false
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]

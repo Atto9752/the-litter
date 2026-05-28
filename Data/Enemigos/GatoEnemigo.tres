@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PersonajeData" format=3 uid="uid://dcq0emnm8xy0a"]
 
 [ext_resource type="Script" uid="uid://bu34252hrl4bs" path="res://Data/PersonajeData.gd" id="1_b5g4k"]
-[ext_resource type="SpriteFrames" uid="uid://6fqflat8t2lx" path="res://Assets/Personajes/Gatitos/Animaciones/animaciones_pantera.tres" id="1_rxi8t"]
+[ext_resource type="SpriteFrames" uid="uid://d3vhbn7vmilsn" path="res://Assets/Personajes/Gatitos/Animaciones/animaciones_tanque.tres" id="1_rxi8t"]
 
 [resource]
 script = ExtResource("1_b5g4k")

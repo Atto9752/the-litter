@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://4j8wqmxh5sq7"
+path="res://.godot/imported/Litters (motif principal).mp3-ccb037b26d79d0651146d20c515ecf7b.mp3str"
+
+[deps]
+
+source_file="res://Assets/Música/Litters (motif principal).mp3"
+dest_files=["res://.godot/imported/Litters (motif principal).mp3-ccb037b26d79d0651146d20c515ecf7b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

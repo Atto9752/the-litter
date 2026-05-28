@@ -3,21 +3,23 @@ signal seleccion_enemigo()
 signal seleccion_aliado()
 signal ataque_iniciado()
 signal ocultar_indicadores_aliados()
-signal retirada_enemigos()
 
 var turno_jugador : bool = true
 var puede_abrir_menu : bool = true
-
 var gato_equipo
 var gato_objetivo
-
 var enemigos = []
 var aliados = []
 var turno_enemigo : int = 0
-
 var batalla_finalizada : bool = false
-
 var tipo_accion : String = ""
+var seleccionando_objetivo : bool = false
+
+# nuevas variables para turnos tipo rpg x turnos clasico
+var acciones_planificadas : Array = [] # guarda diccionarios con {gato_origen, tipo_accion, gato_objetivo} etc
+var aliados_que_ya_eligieron : Array = []
+var ejecutando_acciones_en_cadena : bool = false
+
 
 func registrar_gato(gato):
 	if gato.data.jugador:
@@ -50,37 +52,12 @@ func obtener_personajes():
 			cartel_animado.visible = true
 			cartel_animado.play("aparecer_derrota") 
 
-# para ir cambiando entre el turno del jugador y la ia
-func cambiar_turno():
-	
-	#para no cambiar de turno si la batalla ya terminó 
-	if enemigos.size() == 0: 
-		emit_signal("retirada_enemigos")
-		return
-	
-	turno_jugador = !turno_jugador
-	
-	if turno_jugador:
-		puede_abrir_menu = true
-		print("Turno del jugador")
-		# para quitar la defensa luego del turno del enemigo
-		for i in aliados:
-			i.quitar_defensa()
-		if aliados.size() > 0:
-			aliados[0].get_node("Panel").grab_focus() # para que el menu se abra con el primer gato del equipo seleccionado
-
-	else:
-		puede_abrir_menu = false
-		await get_tree().create_timer(1.5).timeout # pequeña pausa
-		if batalla_finalizada: return
-		print("Turno del enemigo")
-		iniciar_turno_enemigo()
-
 
 func mostrar_selec_gato_enemigo():
 	puede_abrir_menu = false
+	seleccionando_objetivo = true
 	emit_signal("seleccion_enemigo")
-
+	
 	if enemigos.size() > 0:
 		enemigos[0].get_node("Panel").grab_focus() # para que el menu se abra con el primer enemigo seleccionado
 
@@ -89,6 +66,13 @@ func mostrar_selec_gato_equipo():
 	emit_signal("seleccion_aliado")
 
 func seleccion_gato_equipo(gato):
+	if ejecutando_acciones_en_cadena: return
+	
+	
+	if gato.data.jugador and aliados_que_ya_eligieron.has(gato): 
+		print("Este gato ya tiene un comando asignado para este turno.")
+		return
+	
 	emit_signal("ocultar_indicadores_aliados")
 	gato_equipo = gato
 	gato.mostrar_aliado_seleccionado()
@@ -98,45 +82,157 @@ func seleccion_gato_enemigo(gato):
 
 
 func iniciar_ataque():
+	seleccionando_objetivo = false
 	emit_signal("ataque_iniciado")
 	emit_signal("ocultar_indicadores_aliados")
+	
+	# guardamos los datos de la accion del aliado actual
+	var nueva_accion = {
+		"origen": gato_equipo,
+		"tipo": tipo_accion,
+		"objetivo": gato_objetivo
+	}
+	
+	acciones_planificadas.append(nueva_accion)
+	aliados_que_ya_eligieron.append(gato_equipo)
+	
+	gato_equipo = null
+	
+	evaluar_siguiente_paso_jugador()
+
+
+# ejecuta de forma asincrona una accion tras otra
+func ejecutar_acciones_acumuladas():
+	ejecutando_acciones_en_cadena = true
 	puede_abrir_menu = false
+	
+	for accion in acciones_planificadas:
+		var gato = accion["origen"]
+		
+		if not is_instance_valid(gato) or gato.componente_salud.sin_salud: 
+			continue # Si el gato murio antes de su turno en la cola, saltar
+		
+		if accion["tipo"] == "attack":
+			gato.atacar_enemigo(accion["objetivo"])
+			await gato.accion_terminada # espera q el atacante vaya y vuelva
+		elif accion["tipo"] == "grunido":
+			gato.usar_grunido(accion["objetivo"])
+			await gato.accion_terminada
+		elif accion["tipo"] == "bufido":
+			gato.usar_bufido(accion["objetivo"])
+			await gato.accion_terminada
+		elif accion["tipo"] == "defender":
+			gato.defenderse()
+			# la defensa es instantanea, no requiere acercarse a un enemigo
+			await get_tree().create_timer(0.5).timeout
+	
+	
+	# limpiar datos del turno actual del jugador
+	acciones_planificadas.clear()
+	aliados_que_ya_eligieron.clear()
+	ejecutando_acciones_en_cadena = false
+	
+	# pasamos al turno de la ia
+	turno_jugador = false
+	iniciar_turno_enemigo()
 
-	if tipo_accion == "attack":
-		gato_equipo.atacar_enemigo(gato_objetivo)
 
-	elif tipo_accion == "grunido":
-		gato_equipo.usar_grunido(gato_objetivo)  
+# verifica si faltan aliados por elegir comando o si se ejecutan todos
+func evaluar_siguiente_paso_jugador():
+	# filtrar aliados vivos x si alguno muirio
+	var aliados_vivos = aliados.filter(func(g): return !g.componente_salud.sin_salud)
+	
+	if aliados_que_ya_eligieron.size() >= aliados_vivos.size():
+		# todos los gatos del jugador eligieron, se inicia la cadena de acciones
+		ejecutar_acciones_acumuladas()
+	else:
+		# para dejar q el jugador seleccione a otro gato que no haya elegido aun
+		puede_abrir_menu = true
+		for aliado in aliados_vivos:
+			if not aliado in aliados_que_ya_eligieron:
+				gato_equipo = aliado
+				aliado.get_node("Panel").grab_focus()
+				aliado.get_node("Acciones").abrir_menu()
+				break
+
 
 
 func defender_gato():
 	gato_equipo.defenderse()
+	
+	var nueva_accion = {
+		"origen": gato_equipo,
+		"tipo": "defender",
+		"objetivo": null
+	}
+	
+	acciones_planificadas.append(nueva_accion)
+	aliados_que_ya_eligieron.append(gato_equipo)
+	
+	gato_equipo = null
+	evaluar_siguiente_paso_jugador()
 
 
 func iniciar_turno_enemigo():
+	if batalla_finalizada: return
+	puede_abrir_menu = false
 	
-	if turno_enemigo >= enemigos.size():
-		turno_enemigo=0
+	# filtramos los enemigos vivos
+	var enemigos_vivos = enemigos.filter(func(e): return !e.componente_salud.sin_salud)
+	var aliados_vivos = aliados.filter(func(a): return !a.componente_salud.sin_salud)
 	
-	if enemigos.is_empty() or aliados.is_empty(): return # por seguridad
-	
-	var enemigo_actual = enemigos[turno_enemigo]
+	if enemigos_vivos.is_empty() or aliados_vivos.is_empty(): 
+		obtener_personajes()
+		return
 
-	enemigo_actual.quitar_defensa()
-	enemigo_actual.procesar_turnos_estado()
-
-	var objetivo = aliados.pick_random()
-	
-	# para que el ataque sea mas frecuente que la defensa
-	if (randf_range(0,100) < 75):
-		# atacar
-		seleccion_gato_equipo(enemigo_actual)
-		seleccion_gato_enemigo(objetivo)
-		iniciar_ataque()
+	# la ia procesa todos sus gatos vivos uno por uno, esperando su animacion
+	for enemigo_actual in enemigos_vivos:
+		if batalla_finalizada or enemigo_actual.componente_salud.sin_salud: continue
 		
-	else:
-		# defender
-		seleccion_gato_equipo(enemigo_actual)
-		defender_gato()
+		enemigo_actual.actualizar_defensa_actual()
+		enemigo_actual.procesar_turnos_estado()
+		
+		var objetivo = aliados_vivos.pick_random()
+		var dado = randf_range(0, 100)
+		
+		# variables globales momentaneas para este ataque de la ia
+		gato_equipo = enemigo_actual
+		gato_objetivo = objetivo
+		
+		if dado < 65:
+			# 65% ATACAR
+			tipo_accion = "attack"
+			enemigo_actual.atacar_enemigo(objetivo)
+			await enemigo_actual.accion_terminada # espera q el enemigo vaya y vuelva
+		elif dado < 80:
+			# 15% DEFENDER
+			enemigo_actual.defenderse()
+			await get_tree().create_timer(0.5).timeout
+		elif dado < 90:
+			# 10% GRUÑIDO
+			tipo_accion = "grunido"
+			enemigo_actual.usar_grunido(objetivo)
+			await enemigo_actual.accion_terminada
+		else:
+			# 10% BUFIDO
+			tipo_accion = "bufido"
+			enemigo_actual.usar_bufido(objetivo)
+			await enemigo_actual.accion_terminada
+			
+	# Una vez que TODOS los enemigos terminaron sus turnos físicos individuales:
+	# Reiniciamos el ciclo y devolvemos el control al jugador humano
+	turno_jugador = true
+	puede_abrir_menu = true
+	print("--- ¡Turno del Jugador! ---")
 	
-	turno_enemigo = turno_enemigo+1
+	# Limpieza post-turno enemigo
+	for i in aliados:
+		if is_instance_valid(i) and !i.componente_salud.sin_salud:
+			i.actualizar_defensa_actual()
+			
+	# Volvemos a enfocar el menú del primer aliado vivo
+	var aliados_disponibles = aliados.filter(func(a): return !a.componente_salud.sin_salud)
+	if aliados_disponibles.size() > 0:
+		gato_equipo = aliados_disponibles[0]
+		aliados_disponibles[0].get_node("Panel").grab_focus()
+		aliados_disponibles[0].get_node("Acciones").abrir_menu()
