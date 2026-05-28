@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://s5g01wmos48s"
+path="res://.godot/imported/Cat crying.mp3-a80bd2a6bd82968a9ea7da6e7d6cf893.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sonidos/Sonidos free/Cat crying.mp3"
+dest_files=["res://.godot/imported/Cat crying.mp3-a80bd2a6bd82968a9ea7da6e7d6cf893.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

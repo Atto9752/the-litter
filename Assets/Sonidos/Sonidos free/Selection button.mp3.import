@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c83yh1mk8babb"
+path="res://.godot/imported/Selection button.mp3-9a4c5e726da9c4cf682821a86e936c2e.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sonidos/Sonidos free/Selection button.mp3"
+dest_files=["res://.godot/imported/Selection button.mp3-9a4c5e726da9c4cf682821a86e936c2e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

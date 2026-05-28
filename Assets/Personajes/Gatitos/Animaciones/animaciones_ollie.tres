@@ -23,6 +23,18 @@ region = Rect2(96, 0, 48, 48)
 atlas = ExtResource("1_nbbvw")
 region = Rect2(144, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ndd0"]
+atlas = ExtResource("1_nbbvw")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyd1o"]
+atlas = ExtResource("1_nbbvw")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbq5r"]
+atlas = ExtResource("1_nbbvw")
+region = Rect2(96, 0, 48, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_8be56"]
 atlas = ExtResource("2_1ndd0")
 region = Rect2(0, 0, 48, 48)
@@ -132,6 +144,20 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ndd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyd1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbq5r")
+}],
+"loop": false,
+"name": &"bufido",
 "speed": 5.0
 }, {
 "frames": [{

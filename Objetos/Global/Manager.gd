@@ -73,7 +73,7 @@ func cambiar_turno():
 func mostrar_selec_gato_enemigo():
 	puede_abrir_menu = false
 	emit_signal("seleccion_enemigo")
-
+	
 	if enemigos.size() > 0:
 		enemigos[0].get_node("Panel").grab_focus() # para que el menu se abra con el primer enemigo seleccionado
 
@@ -95,12 +95,15 @@ func iniciar_ataque():
 	emit_signal("ocultar_indicadores_aliados")
 	puede_abrir_menu = false
 	gato_equipo.atacar_enemigo(gato_objetivo)
-
+	
 	if tipo_accion == "attack":
 		gato_equipo.atacar_enemigo(gato_objetivo)
-
+		
 	elif tipo_accion == "grunido":
-		gato_equipo.usar_grunido(gato_objetivo)  
+		gato_equipo.usar_grunido(gato_objetivo)
+		
+	elif tipo_accion == "bufido":
+		gato_equipo.usar_bufido(gato_objetivo)
 
 
 func defender_gato():
@@ -111,26 +114,33 @@ func iniciar_turno_enemigo():
 	
 	if turno_enemigo >= enemigos.size():
 		turno_enemigo=0
-	
-	if enemigos.is_empty() or aliados.is_empty(): return # por seguridad
+	elif enemigos.is_empty() or aliados.is_empty(): return # por seguridad
 	
 	var enemigo_actual = enemigos[turno_enemigo]
-
 	enemigo_actual.quitar_defensa()
 	enemigo_actual.procesar_turnos_estado()
-
-	var objetivo = aliados.pick_random()
 	
-	# para que el ataque sea mas frecuente que la defensa
-	if (randf_range(0,100) < 75):
-		# atacar
-		seleccion_gato_equipo(enemigo_actual)
+	var objetivo = aliados.pick_random()
+	var dado = randf_range(0, 100) # se genera un numero del 0 al 100
+	seleccion_gato_equipo(enemigo_actual) # El "gato_equipo" pasa a ser el enemigo activo
+	
+	if dado < 65:
+		# 65% de probabilidad: ATACAR
+		tipo_accion = "attack"
 		seleccion_gato_enemigo(objetivo)
 		iniciar_ataque()
-		
-	else:
-		# defender
-		seleccion_gato_equipo(enemigo_actual)
+	elif dado < 80:
+		# 15% de Probabilidad (De 65 a 80): DEFENDER
 		defender_gato()
+	elif dado < 90:
+		# 10% de Probabilidad (De 80 a 90): GRUÑIDO
+		tipo_accion = "grunido"
+		seleccion_gato_enemigo(objetivo)
+		iniciar_ataque()
+	else:
+		# 10% de Probabilidad (De 90 a 100): BUFIDO
+		tipo_accion = "bufido"
+		seleccion_gato_enemigo(objetivo)
+		iniciar_ataque()
 	
 	turno_enemigo = turno_enemigo+1

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://pg1e05jur0g2"
+path="res://.godot/imported/Impacto dramatico.mp3-f5250e593309fe623b577ec306e0bbab.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sonidos/Sonidos free/Impacto dramatico.mp3"
+dest_files=["res://.godot/imported/Impacto dramatico.mp3-f5250e593309fe623b577ec306e0bbab.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
